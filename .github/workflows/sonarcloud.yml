@@ -39,16 +39,6 @@ jobs:
             rm sources.txt
           fi
 
-          # === FE_Ventura_Configurador ===
-          mkdir -p classes_FE_Ventura_Configurador
-          if [ -d "FE_Ventura_Configurador/src" ]; then
-            find FE_Ventura_Configurador/src -name "*.java" > sources.txt
-            if [ -s sources.txt ]; then
-              javac -cp "recursos/CONFIGURADOR/*" -d classes_FE_Ventura_Configurador @sources.txt
-            fi
-            rm sources.txt
-          fi
-
           # === FE_Ventura_Request ===
           mkdir -p classes_FE_Ventura_Request
           if [ -d "FE_Ventura_Request/src" ]; then

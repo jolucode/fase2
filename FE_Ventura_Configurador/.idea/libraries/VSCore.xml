@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="VSCore">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/VSCore/dist/VSCore.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

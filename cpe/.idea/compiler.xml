@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="request" />
+        <module name="core" />
+        <module name="configurador" />
+        <module name="response" />
+        <module name="publicador" />
+        <module name="extractor" />
+        <module name="resumen" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="configurador" target="1.8" />
+      <module name="request" target="1.8" />
+      <module name="response" target="1.8" />
+      <module name="resumen" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="configurador" options="-parameters" />
+      <module name="core" options="-parameters" />
+      <module name="extractor" options="-parameters" />
+      <module name="publicador" options="-parameters" />
+      <module name="request" options="-parameters" />
+      <module name="response" options="-parameters" />
+      <module name="resumen" options="-parameters" />
+    </option>
+  </component>
+</project>

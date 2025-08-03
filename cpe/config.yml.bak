@@ -1,0 +1,106 @@
+---
+configuracion:
+  gestorTiempo:
+    tiempo: "10"
+  erp:
+    servidorLicencias: "192.168.1.14:40000"
+    tipoServidor: "9"
+    tipoConector: "1"
+    servidorBD: "NDB@192.168.1.14:30013"
+    baseDeDatos: "SBO_FE_QUICKSA"
+    user: "SYSTEM"
+    password: "HANAB1Admin"
+    erpUser: "manager"
+    erpPass: "B1Admin"
+    erpRutaArchivos: ""
+    erpNombreSociedad: ""
+  usoSunat:
+    ws: "true"
+    pdf: "true"
+    validacion: "false"
+  repositorio:
+    tipoServidor: "11"
+    servidorBD: "localhost"
+    puerto: "3306"
+    baseDatos: "qr_guias"
+    user: "root"
+    password: "B1Admin"
+  proxy:
+    usarProxy: "false"
+    servidor: ""
+    puerto: ""
+    requAuth: "false"
+    user: ""
+    pass: ""
+  directorio:
+    adjuntos: "D:\\marzo\\fe\\Paquete\\FE_Ventura\\DIRECTORIOS"
+  tiempos:
+    rqTimeOut: "61"
+    rqInterval: "20"
+    rsTimeOut: "61"
+    rsInterval: "20"
+  webService:
+    wsUsuario: "admin"
+    wsClave: "ventura"
+    wsLocation: "http://13072022portal.vsperufe.com/"
+    wsTiempoEsperaPublic: 61
+    wsIntervaloRepeticionPublic: 20
+    wsTiempoPublicacionPublic: 0
+  emisorElectronico:
+    rs: "205454844881/SUNAT"
+    senderLogo: "D:\\marzo\\vs_repository\\fase 2\\06112022\\pe_pes2cpeii\\Recursos\\\
+      COMPANY_LOGO.jpg"
+  impresion:
+    pdf: "Codigo QR"
+  certificadoDigital:
+    rutaCertificado: "D:\\marzo\\vs_repository\\fase 2\\06112022\\pe_pes2cpeii\\Recursos\\\
+      CERTIFICATE_TEST.pfx"
+    passwordCertificado: "1234"
+    proveedorKeystore: "SunJSSE"
+    tipoKeystore: "Pkcs12"
+  pfeConnector:
+    tipo: "2"
+  resumenDiario:
+    hora: "16:52"
+    fecha: ""
+  general:
+    puertoConfigurador: "8000"
+    puertoRequest: "8001"
+    puertoResponse: "8002"
+    puertoResumen: "8003"
+    puertoPublicador: "8004"
+    puertoExtractor: ""
+  sunat:
+    mostrarSoap: "true"
+    clienteSunat: "test"
+    ambiente: "2"
+    usuario:
+      usuarioSol: "20510910517MODDATOS"
+      claveSol: "moddatos"
+    integracionWS: "OSE"
+    rutaSunatTest: "https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?wsdl"
+    rutaSunatProd: "https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService?wsdl"
+    rutaOseTest: "https://proy.ose.tci.net.pe/ol-ti-itcpe-2/ws/billService?wsdl"
+    rutaOseProd: "https://ose.tci.net.pe/ol-ti-itcpe-2/ws/billService?wsdl"
+  versionUBL:
+    factura: "21"
+    boleta: "21"
+    notaCredito: "21"
+    notaDebito: "21"
+  pdf:
+    invoiceReportPath: "D:\\marzo\\vs_repository\\fase 2\\06112022\\pe_pes2cpeii\\\
+      Recursos\\PdfPlantilla\\Template_Default\\invoiceDocument.jrxml"
+    boletaReportPath: "D:\\marzo\\vs_repository\\fase 2\\06112022\\pe_pes2cpeii\\\
+      Recursos\\PdfPlantilla\\Template_Default\\boletaDocument.jrxml"
+    creditNoteReportPath: "D:\\marzo\\vs_repository\\fase 2\\06112022\\pe_pes2cpeii\\\
+      Recursos\\PdfPlantilla\\Template_Default\\creditNoteDocument.jrxml"
+    perceptionReportPath: "D:\\marzo\\vs_repository\\fase 2\\06112022\\pe_pes2cpeii\\\
+      Recursos\\PdfPlantilla\\Template_Default\\perceptionDocument.jrxml"
+    retentionReportPath: "D:\\marzo\\vs_repository\\fase 2\\06112022\\pe_pes2cpeii\\\
+      Recursos\\PdfPlantilla\\Template_Default\\retentionDocument.jrxml"
+    debitNoteReportPath: "D:\\marzo\\vs_repository\\fase 2\\06112022\\pe_pes2cpeii\\\
+      Recursos\\PdfPlantilla\\Template_Default\\debitNoteDocument.jrxml"
+    legendSubReportPath: "D:\\marzo\\vs_repository\\fase 2\\06112022\\pe_pes2cpeii\\\
+      Recursos\\PdfPlantilla\\Template_Default\\legendReport.jasper"
+    remissionGuideReportPath: "D:\\marzo\\vs_repository\\fase 2\\06112022\\pe_pes2cpeii\\\
+      Recursos\\PdfPlantilla\\Template_Default\\remissionguideDocument.jrxml"

@@ -1,0 +1,104 @@
+---
+configuracion:
+  gestorTiempo:
+    tiempo: "10"
+  erp:
+    servidorLicencias: "DESKTOP-FHTRSLI:30000"
+    tipoServidor: "15"
+    tipoConector: "1"
+    servidorBD: "DESKTOP-FHTRSLI"
+    baseDeDatos: "SBO_FACTURACION"
+    user: "sa"
+    password: "x78E0GI4fogM/oQLKDaFLA=="
+    erpUser: "manager"
+    erpPass: "m4n4g3r123"
+    erpRutaArchivos: "\\\\DESKTOP-FHTRSLI\\FE_Ventura\\anexo"
+    erpNombreSociedad: ""
+  usoSunat:
+    ws: "true"
+    pdf: "false"
+    validacion: "false"
+  repositorio:
+    tipoServidor: "11"
+    servidorBD: "localhost"
+    puerto: "3306"
+    baseDatos: "facturacion"
+    user: "root"
+    password: "root"
+  proxy:
+    usarProxy: "false"
+    servidor: ""
+    puerto: ""
+    requAuth: "false"
+    user: ""
+    pass: ""
+  directorio:
+    adjuntos: ""
+  tiempos:
+    rqTimeOut: "61"
+    rqInterval: "20"
+    rsTimeOut: "61"
+    rsInterval: "20"
+  webService:
+    wsUsuario: "admin"
+    wsClave: "ventura"
+    wsLocation: "http://jirena.fe.jirena-fe.com/"
+    wsTiempoEsperaPublic: 61
+    wsIntervaloRepeticionPublic: 20
+    wsTiempoPublicacionPublic: 0
+  emisorElectronico:
+    rs: "205454844881/SUNAT"
+    senderLogo: "F:\\VSCPEOSE\\PRODDUCCION\\FE_Ventura\\Recursos\\COMPANY_LOGO.jpg"
+  impresion:
+    pdf: "Codigo QR"
+  certificadoDigital:
+    rutaCertificado: "D:\\PRUEBAS_FE\\FE_Ventura\\Recursos\\CertificadoPFX.pfx"
+    passwordCertificado: "Jirena478"
+    proveedorKeystore: "SunJSSE"
+    tipoKeystore: "Pkcs12"
+  pfeConnector:
+    tipo: "2"
+  resumenDiario:
+    hora: "19:00"
+    fecha: ""
+  general:
+    puertoConfigurador: "8100"
+    puertoRequest: "8101"
+    puertoResponse: "8102"
+    puertoResumen: "8103"
+    puertoPublicador: "8104"
+    puertoExtractor: ""
+  sunat:
+    mostrarSoap: "true"
+    clienteSunat: "test"
+    ambiente: "2"
+    usuario:
+      usuarioSol: "20510910517"
+      claveSol: "20510910517"
+    integracionWS: "OSE"
+    rutaSunatTest: "https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?wsdl"
+    rutaSunatProd: "https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService?wsdl"
+    rutaOseTest: "https://proy.ose.tci.net.pe/ol-ti-itcpe-2/ws/billService?wsdl"
+    rutaOseProd: "https://ose.tci.net.pe/ol-ti-itcpe-2/ws/billService?wsdl"
+  versionUBL:
+    factura: "21"
+    boleta: "21"
+    notaCredito: "21"
+    notaDebito: "21"
+  pdf:
+    invoiceReportPath: "F:\\VSCPEOSE\\PRODDUCCION\\FE_Ventura\\Recursos\\PdfPlantilla\\\
+      Template_Default\\invoiceDocument.jrxml"
+    boletaReportPath: "F:\\VSCPEOSE\\PRODDUCCION\\FE_Ventura\\Recursos\\PdfPlantilla\\\
+      Template_Default\\boletaDocument.jrxml"
+    creditNoteReportPath: "F:\\VSCPEOSE\\PRODDUCCION\\FE_Ventura\\Recursos\\PdfPlantilla\\\
+      Template_Default\\creditNoteDocument.jrxml"
+    perceptionReportPath: "F:\\VSCPEOSE\\PRODDUCCION\\FE_Ventura\\Recursos\\PdfPlantilla\\\
+      Template_Default\\perceptionDocument.jrxml"
+    retentionReportPath: "F:\\VSCPEOSE\\PRODDUCCION\\FE_Ventura\\Recursos\\PdfPlantilla\\\
+      Template_Default\\retentionDocument.jrxml"
+    debitNoteReportPath: "F:\\VSCPEOSE\\PRODDUCCION\\FE_Ventura\\Recursos\\PdfPlantilla\\\
+      Template_Default\\debitNoteDocument.jrxml"
+    legendSubReportPath: "F:\\VSCPEOSE\\PRODDUCCION\\FE_Ventura\\Recursos\\PdfPlantilla\\\
+      Template_Default\\legendReport.jasper"
+    remissionGuideReportPath: "F:\\VSCPEOSE\\PRODDUCCION\\FE_Ventura\\Recursos\\PdfPlantilla\\\
+      Template_Default\\remissionguideDocument.jrxml"

@@ -1,0 +1,1 @@
+call "bpvs_FE_FacturaLineas" ('%s',%s)

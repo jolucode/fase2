@@ -1,0 +1,1 @@
+call "bpvs_FE_ConsultaHoraDOC" ('%s','%s')

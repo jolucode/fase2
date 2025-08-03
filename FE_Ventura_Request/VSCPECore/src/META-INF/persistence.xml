@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="VSCPEDAOPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+      <class>org.ventura.cpe.dto.hb.ReglasIdiomasDoc</class>
+      <class>org.ventura.cpe.dto.hb.Transaccion</class>
+      <class>org.ventura.cpe.dto.hb.LogTrans</class>
+      <class>org.ventura.cpe.dto.hb.PublicacionDocumento</class>
+      <class>org.ventura.cpe.dto.hb.PublicardocWs</class>
+      <class>org.ventura.cpe.dto.hb.ResumendiarioConfig</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionAnticipo</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionBaja</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionComprobantePago</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionContractdocref</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionDocrefers</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionError</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionImpuestos</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionLineaImpuestos</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionLineas</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionLineasBillref</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionLineasUsucampos</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionPropiedades</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionResumen</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionResumenComprobante</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionResumenLinea</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionResumenLineaAnexo</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionTotales</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionUsucampos</class>
+      <class>org.ventura.cpe.dto.hb.Usuariocampos</class>
+      <class>org.ventura.cpe.dto.hb.BdsMaestras</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionComprobantepagoUsuario</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionGuiaRemision</class>
+      <class>org.ventura.cpe.dto.hb.TransaccionCuotas</class>
+      <class>org.ventura.cpe.dto.hb.CodErrorSunat</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:sqlserver://DESKTOP-IR9VGH8;databaseName=VSCPEBD"/>
+      <property name="javax.persistence.jdbc.password" value="Home17121991"/>
+      <property name="javax.persistence.jdbc.driver" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+      <property name="javax.persistence.jdbc.user" value="sa"/>
+      <property name="hibernate.hbm2ddl.auto" value="none"/>
+      <property name="eclipselink.ddl-generation" value="none"/>
+    </properties>
+  </persistence-unit>
+</persistence>

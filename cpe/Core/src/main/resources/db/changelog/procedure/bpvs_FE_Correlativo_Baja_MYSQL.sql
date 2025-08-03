@@ -1,0 +1,29 @@
+DROP PROCEDURE IF EXISTS `bpvs_FE_Correlativo_Baja`;
+
+CREATE  PROCEDURE `bpvs_FE_Correlativo_Baja`()
+BEGIN
+DECLARE DateTimeInt VARCHAR(50);
+DECLARE Maximo BIGINT;
+DECLARE Ultimo VARCHAR(50);
+DECLARE iid INT;
+DECLARE serie VARCHAR(50);
+DECLARE filas INT;
+SET @DateTimeInt = DATE_FORMAT(CURRENT_DATE,'%Y%m%d');
+SET @Maximo = (SELECT MAX(fecha) FROM TRANSACCION_BAJA);
+SET @iid = (SELECT IFNULL(MAX(ID)+1,0) FROM TRANSACCION_BAJA WHERE fecha= DATE_FORMAT(CURRENT_DATE,'%Y%m%d'));
+SET @filas = (SELECT COUNT(fecha) FROM TRANSACCION_BAJA);
+IF(@filas=0) THEN
+SET @serie = CONCAT('RA','-',@DateTimeInt,'-',CONCAT(REPEAT('0', 5-LENGTH(1)), 1) );
+INSERT INTO TRANSACCION_BAJA (fecha,ID,serie) VALUES(@DateTimeInt,1,@serie);
+SELECT * FROM TRANSACCION_BAJA WHERE fecha=@DateTimeInt;
+END IF;
+IF(@Maximo!=@DateTimeInt) THEN
+SET @serie = CONCAT('RA','-',@DateTimeInt,'-', CONCAT(REPEAT('0', 5-LENGTH(1)), 1));
+INSERT INTO TRANSACCION_BAJA (fecha,ID,serie) VALUES(@DateTimeInt,1,@serie);
+SELECT * FROM TRANSACCION_BAJA WHERE fecha=@DateTimeInt;
+ELSE
+SET @serie = CONCAT('RA','-',@DateTimeInt,'-', CONCAT(REPEAT('0', 5-LENGTH(@iid)), @iid));
+UPDATE TRANSACCION_BAJA SET ID=@iid, serie=@serie WHERE fecha=@DateTimeInt;
+SELECT * FROM TRANSACCION_BAJA WHERE fecha=@DateTimeInt;
+END IF;
+END;

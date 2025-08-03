@@ -1,0 +1,6 @@
+1. Se debe de seguir el documento de 
+C:\SVN\Producto\PE\PES2CPEII\VSCPE\trunk\Fuentes\Documentos\Manual Instructivo.docx
+2. Reiniciar el netbeans
+3. Crear las librerias segun las carpetas adjuntas.
+4. Por defecto despues de reiniciar el netbeans hay una libreria de jaxrpc16
+

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<Configuracion>
+    <GestorTiempo>
+        <Tiempo encriptado="false">10</Tiempo>
+    </GestorTiempo>
+    <ERP>
+        <ServidorLicencias encriptado="false">DESKTOP-1RMB9NS:30000</ServidorLicencias>
+        <TipoServidor encriptado="false">7</TipoServidor>
+        <TipoConector encriptado="false">1</TipoConector>
+        <ServidorBD encriptado="false">DESKTOP-1RMB9NS</ServidorBD>
+        <BaseDeDatos encriptado="false">SBO_GRAFIPAPEL</BaseDeDatos>
+        <User encriptado="false">sa</User>
+        <Password encriptado="true">Vm9LR19MNnVnbEJC</Password>
+        <ERPUser encriptado="false">manager</ERPUser>
+        <ERPPass encriptado="true">VzhHbWhMW3hSSUpC</ERPPass>
+        <ERPRutaArchivos encriptado="false"/>
+        <ERPNombreSociedad encriptado="false"/>
+    </ERP>
+    <UsoSunat>
+        <WS encriptado="false">true</WS>
+        <PDF encriptado="false">false</PDF>
+        <Validacion encriptado="false">false</Validacion>
+    </UsoSunat>
+    <Repositorio>
+        <TipoServidor encriptado="false">11</TipoServidor>
+        <ServidorBD encriptado="false">localhost</ServidorBD>
+        <Puerto encriptado="false">3306</Puerto>
+        <BaseDatos encriptado="false">vscpebd?serverTimezone=UTC</BaseDatos>
+        <User encriptado="false">root</User>
+        <Password encriptado="false"></Password>
+    </Repositorio>
+    <Proxy>
+        <UsarProxy encriptado="false">false</UsarProxy>
+        <Servidor encriptado="false"/>
+        <Puerto encriptado="false"/>
+        <RequAuth encriptado="false">false</RequAuth>
+        <User encriptado="false"/>
+        <Pass encriptado="true"/>
+    </Proxy>
+    <Directorio>
+        <Adjuntos encriptado="true">V0l1aFpLT1tXWk9HWjY+TFdbfUxXWz5cX1w6NWldT21dS1d+Xlw6f15cU29mXD56X11SQg==</Adjuntos>
+    </Directorio>
+    <Tiempos>
+        <RQTimeOut encriptado="false">61</RQTimeOut>
+        <RQInterval encriptado="false">20</RQInterval>
+        <RSTimeOut encriptado="false">61</RSTimeOut>
+        <RSInterval encriptado="false">20</RSInterval>
+    </Tiempos>
+    <WebService>
+        <WSUsuario encriptado="false">admin</WSUsuario>
+        <WSClave encriptado="true">aXJbemlNW35eVkJC</WSClave>
+        <WSLocation encriptado="false">http://www.digital-fact.com/WSSERVER/WSSERVER.php</WSLocation>
+        <WSTiempoEsperaPublic encriptado="false">61</WSTiempoEsperaPublic>
+        <WSIntervaloRepeticionPublic encriptado="false">20</WSIntervaloRepeticionPublic>
+        <WSTiempoPublicacionPublic encriptado="false">0</WSTiempoPublicacionPublic>
+    </WebService>
+    <EmisorElectronico>
+        <RS encriptado="false">205454844881/SUNAT</RS>
+        <SenderLogo encriptado="false">D:\PRUEBAS_FE\FE_Ventura\Recursos\COMPANY_LOGO.jpg</SenderLogo>
+    </EmisorElectronico>
+    <Impresion>
+        <PDF encriptado="false">Codigo QR</PDF>
+    </Impresion>
+    <Pdf>
+        <InvoiceReportPath encriptado="false">
+            D:\PRUEBAS_FE\FE_Ventura\Recursos\PdfPlantilla\Template_Default\invoiceDocument.jrxml
+        </InvoiceReportPath>
+        <BoletaReportPath encriptado="false">
+            D:\PRUEBAS_FE\FE_Ventura\Recursos\PdfPlantilla\Template_Default\boletaDocument.jrxml
+        </BoletaReportPath>
+        <CreditNoteReportPath encriptado="false">
+            D:\PRUEBAS_FE\FE_Ventura\Recursos\PdfPlantilla\Template_Default\creditNoteDocument.jrxml
+        </CreditNoteReportPath>
+        <PerceptionReportPath encriptado="false">
+            D:\PRUEBAS_FE\FE_Ventura\Recursos\PdfPlantilla\Template_Default\perceptionDocument.jrxml
+        </PerceptionReportPath>
+        <RetentionReportPath encriptado="false">
+            D:\PRUEBAS_FE\FE_Ventura\Recursos\PdfPlantilla\Template_Default\retentionDocument.jrxml
+        </RetentionReportPath>
+        <DebitNoteReportPath encriptado="false">
+            D:\PRUEBAS_FE\FE_Ventura\Recursos\PdfPlantilla\Template_Default\debitNoteDocument.jrxml
+        </DebitNoteReportPath>
+        <LegendSubReportPath encriptado="false">
+            D:\PRUEBAS_FE\FE_Ventura\Recursos\PdfPlantilla\Template_Default\legendReport.jasper
+        </LegendSubReportPath>
+        <RemissionGuideReportPath encriptado="false">
+            D:\PRUEBAS_FE\FE_Ventura\Recursos\PdfPlantilla\Template_Default\remissionguideDocument.jrxml
+        </RemissionGuideReportPath>
+    </Pdf>
+    <CertificadoDigital>
+        <RutaCertificado encriptado="false">D:\PRUEBAS_FE\FE_Ventura\Recursos\CERTIFICATE_TEST.pfx</RutaCertificado>
+        <PasswordCertificado encriptado="true">UllOf1NGQkI=</PasswordCertificado>
+        <ProveedorKeystore encriptado="false">SunJSSE</ProveedorKeystore>
+        <TipoKeystore encriptado="false">Pkcs12</TipoKeystore>
+    </CertificadoDigital>
+    <PFEConnector>
+        <Tipo encriptado="false">2</Tipo>
+    </PFEConnector>
+    <ResumenDiario>
+        <Hora encriptado="false">08:30</Hora>
+        <Fecha encriptado="false"/>
+    </ResumenDiario>
+    <General>
+        <PuertoVS_Configurador encriptado="false">7000</PuertoVS_Configurador>
+        <PuertoVS_Request encriptado="false">7001</PuertoVS_Request>
+        <PuertoVS_Response encriptado="false">7002</PuertoVS_Response>
+        <PuertoVS_Resumen encriptado="false">7003</PuertoVS_Resumen>
+        <PuertoVS_PublicWS encriptado="false">7004</PuertoVS_PublicWS>
+        <PuertoVS_Extractor encriptado="false">7005</PuertoVS_Extractor>
+    </General>
+    <Sunat>
+        <MostrarSoap encriptado="false">true</MostrarSoap>
+        <ClienteSunat encriptado="false">test</ClienteSunat>
+        <Ambiente encriptado="false">1</Ambiente>
+        <Usuario>
+            <UsuarioSol encriptado="false">20510910517</UsuarioSol>
+            <ClaveSol encriptado="true">Um9GNlJZRjpSWUY2UlloQg==</ClaveSol>
+        </Usuario>
+        <IntegracionWS encriptado="false">OSE</IntegracionWS>
+        <RutaSunatTest encriptado="false">https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?wsdl
+        </RutaSunatTest>
+        <RutaSunatProd encriptado="false">https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService?wsdl
+        </RutaSunatProd>
+        <RutaOseTest encriptado="false">https://proy.ose.tci.net.pe/ol-ti-itcpe-2/ws/billService?wsdl</RutaOseTest>
+        <RutaOseProd encriptado="false">https://ose.tci.net.pe/ol-ti-itcpe-2/ws/billService?wsdl</RutaOseProd>
+
+    </Sunat>
+    <VersionUBL>
+        <Factura encriptado="false">21</Factura>
+        <Boleta encriptado="false">21</Boleta>
+        <NotaCredito encriptado="false">21</NotaCredito>
+        <NotaDebito encriptado="false">21</NotaDebito>
+    </VersionUBL>
+    <Modulos>
+        <Modulo>
+            <Nombre encriptado="false">Ventura Resquest</Nombre>
+            <Ruta encriptado="false">fkshdfkshfksdf</Ruta>
+        </Modulo>
+    </Modulos>
+</Configuracion>

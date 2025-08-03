@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <appender name="consoleAppender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%thread] %logger{15} - %msg %n</pattern>
+        </encoder>
+    </appender>
+    <appender name="rollingFileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>logs/%d{dd-MM-yyyy}/%d{yyyyMMdd}main.log</FileNamePattern>
+            <MaxHistory>30</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%thread] %logger{0}: %msg%n</pattern>
+        </encoder>
+    </appender>
+    <root level="info">
+        <appender-ref ref="consoleAppender" />
+    </root>
+    <logger name="org.springframework" level="INFO">
+        <appender-ref ref="rollingFileAppender" />
+    </logger>
+    <logger name="org.ventura.cpe.core" level="INFO">
+        <appender-ref ref="rollingFileAppender" />
+    </logger>
+    <logger name="org.ventura.cpe.core" level="ERROR">
+        <appender-ref ref="rollingFileAppender"/>
+    </logger>
+    <logger name="org.ventura.cpe.core" level="DEBUG">
+        <appender-ref ref="rollingFileAppender"/>
+    </logger>
+    <logger name="org.ventura.cpe.extractor" level="INFO">
+        <appender-ref ref="rollingFileAppender"/>
+    </logger>
+    <logger name="org.ventura.cpe.extractor" level="ERROR">
+        <appender-ref ref="rollingFileAppender"/>
+    </logger>
+    <logger name="org.ventura.cpe.extractor" level="DEBUG">
+        <appender-ref ref="rollingFileAppender"/>
+    </logger>
+    <logger name="org.ventura.cpe.configurador" level="INFO">
+        <appender-ref ref="rollingFileAppender"/>
+    </logger>
+    <logger name="org.ventura.cpe.configurador" level="ERROR">
+        <appender-ref ref="rollingFileAppender"/>
+    </logger>
+    <logger name="org.ventura.cpe.configurador" level="DEBUG">
+        <appender-ref ref="rollingFileAppender"/>
+    </logger>
+</configuration>

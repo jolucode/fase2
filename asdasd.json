@@ -1,0 +1,98 @@
+{
+  "corporateLoan": {
+    "corporateLoanId" : "D00002837053",
+    "paymentType": "CTE",
+    "valueDate": "",
+    "compensatoryInterestRate": 0,
+    "moratoriumInterestRate": 0,
+    "hasFreight": true,
+    "feeExpenses": 0,
+    "creditCurrency": {
+      "code": ""
+    }
+  },
+  "aditionalInformation": {
+    "orchestratorData": {
+      "documentNumber": "",
+      "debtorType": "",
+      "installmentNumber": "   ",
+      "totalAmountPay": ""
+    },
+    "commisionRate": 0,
+    "transientLoanId": "",
+    "payer": {
+      "payerId": "",
+      "documentType": "",
+      "underageReference": "",
+      "address": {
+        "referenceId": ""
+      }
+    },
+    "renovationInformation": {
+      "renovableAmount": "",
+      "operatorUser": "",
+      "currency": {
+        "code": "1001"
+      },
+      "productDetail": {
+        "tioaux": ""
+      },
+      "compostType": ""
+    },
+    "interestRate": 0,
+    "cancellationFee": "",
+    "disbursementFee": "",
+    "beneficiaryName": "",
+    "creditAccountCAI": "",
+    "creditAccountIIC": "           ",
+    "chargeAccountCAI": "",
+    "chargeAccountIIC": "",
+    "creditDestinationCode": "",
+    "deferredIncomeAmount": "",
+    "financingLineCode": "",
+    "dataAreaDlc": {
+      "numberDlc": "",
+      "indirectDocumentNumber": "",
+      "indirectDocumentType": "",
+      "correlativeInderect": "",
+      "addressNumber": "",
+      "porcentageInderectDebt": "",
+      "valuedNumber": "",
+      "disbursementIndicator": "",
+      "legalDocumentAmount": "",
+      "expirationDateDocument": "",
+      "acceptorAddress": "",
+      "district": "",
+      "interestRate": "",
+      "aceptanceIndicator": "",
+      "rateIndicator": "",
+      "evcOccurrences": "",
+      "cicEvc": ""
+    },
+    "dataAreaEvc": {
+      "structureNumber": "",
+      "numberInstallments": "",
+      "firstInstallmentDue": "",
+      "paymentDueDate": "",
+      "periodicityFirstInstallments": "",
+      "firstInstallmentTime": "",
+      "feeCalculationType": "",
+      "informedCapitalAmount": "",
+      "periodicityInstallments": "",
+      "periodicityUnitTime": ""
+    }
+  },
+  "chargeInformation": {
+    "chargedAccount": {
+      "productDetail": {
+        "chargeAccountType": "004",
+        "currency": {
+          "code": "1001"
+        }
+      },
+      "chargedAccountId": "1911245151081",
+      "chargedType": "CTBL"
+    },
+    "chargedService": ""
+  }
+}

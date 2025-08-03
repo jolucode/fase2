@@ -1,0 +1,66 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="FE_Ventura_Configurador:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/FE_Ventura_Configurador_jar</output-path>
+    <root id="archive" name="FE_Ventura_Configurador.jar">
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/VSCore/META-INF/MANIFEST.MF" />
+      </element>
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/axis-1.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/axis-jaxrpc-1.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/barbecue-1.5-beta1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/common-lang3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/commons-beanutils-1.8.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/commons-codec-1.10.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/commons-collections-3.2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/commons-csv.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/commons-digester-2.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/commons-discovery-0.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/commons-io-2.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/commons-logging-1.1.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/core-3.4.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/groovy-all-2.0.1.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/gson-2.8.5.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/hamcrest-core-1.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/icepdf-core-4.3.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/icepdf-viewer.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/iText-2.1.7.js2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/jasperreports-5.6.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/java-mail-1.4.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/javacsv.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/javase-3.4.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/javax.persistence-2.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/javax.persistence.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/jaxrpc-impl-1.1.3_01.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/jaxrpc-spi.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/jcalendar-1.4.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/json-simple-2.1.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/junit.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/log4j-1.2.16.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/lombok-1.18.8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/mssql-jdbc-7.2.2.jre8.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/mysql-connector-java-8.0.14.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/org.eclipse.persistence.antlr-2.5.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/org.eclipse.persistence.asm-2.5.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/org.eclipse.persistence.core-2.5.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/org.eclipse.persistence.jpa-2.5.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/org.eclipse.persistence.jpa.jpql-2.5.2.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/poi-4.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/poi-ooxml-4.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/poi-ooxml-schemas-4.1.0.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/quick-json-1.0.2.3.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/sboapi.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/sbowrapper.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/spring-aop-5.1.9.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/spring-beans-5.1.9.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/spring-boot-2.1.7.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/spring-boot-autoconfigure-2.1.7.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/spring-context-5.1.9.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/spring-core-5.1.9.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/spring-expression-5.1.9.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/spring-jcl-5.1.9.RELEASE.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/sunpkcs11.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/VSCore.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/../../../LIBS_ACTUAL/CONFIGURADOR/wsdl4j-1.6.2.jar" path-in-jar="/" />
+    </root>
+  </artifact>
+</component>

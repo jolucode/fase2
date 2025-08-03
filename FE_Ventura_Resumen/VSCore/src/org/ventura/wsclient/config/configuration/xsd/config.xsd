@@ -1,0 +1,129 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Configuracion">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Repositorio">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ServidorBD" type="xs:string"/>
+              <xs:element name="Puerto" type="xs:string"/>
+              <xs:element name="BaseDatos" type="xs:string"/>
+              <xs:element name="User" type="xs:string"/>
+              <xs:element name="Password" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Proxy">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="UsarProxy" type="xs:string"/>
+              <xs:element name="Servidor" type="xs:string" />
+              <xs:element name="Puerto" type="xs:string"/>
+              <xs:element name="ReqAuth" type="xs:string"/>
+              <xs:element name="User" type="xs:string"/>
+              <xs:element name="Password" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="TransaccionProps" type="xs:string"/>
+        <xs:element name="ConsultaProps" type="xs:string"/>
+        <xs:element name="Directorio">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Adjuntos">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="encriptado" type="xs:string"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Tiempos">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RQTimeOut" type="xs:string"/>
+              <xs:element name="RQInterval" type="xs:string"/>
+              <xs:element name="RSTimeOut" type="xs:string"/>
+              <xs:element name="RSInterval" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="EmisorElectronico">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="RS" type="xs:string"/>
+              <xs:element name="SenderLogo" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CertificadoDigital">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ProveedorKeystore" type="xs:string"/>
+              <xs:element name="TipoKeystore" type="xs:string"/>
+              <xs:element name="RutaCertificado" type="xs:string"/>
+              <xs:element name="PasswordCertificado">
+                <xs:complexType>
+                  <xs:simpleContent>
+                    <xs:extension base="xs:string">
+                      <xs:attribute name="encriptado" type="xs:string"/>
+                    </xs:extension>
+                  </xs:simpleContent>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Sunat">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ClienteSunat" type="xs:string"/>
+              <xs:element name="MostrarSoap" type="xs:string"/>
+              <xs:element name="Ambiente" type="xs:string"/>
+              <xs:element name="IntegracionWS" type="xs:string"/>
+              <xs:element name="Usuario">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="UsuarioSol" type="xs:string"/>
+                    <xs:element name="ClaveSol">
+                      <xs:complexType>
+                        <xs:simpleContent>
+                          <xs:extension base="xs:string">
+                            <xs:attribute name="encriptado" type="xs:string"/>
+                          </xs:extension>
+                        </xs:simpleContent>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Pdf">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="InvoiceReportPath" type="xs:string"/>
+              <xs:element name="BoletaReportPath" type="xs:string"/>
+              <xs:element name="CreditNoteReportPath" type="xs:string"/>
+              <xs:element name="DebitNoteReportPath" type="xs:string"/>
+              <xs:element name="LegendSubReportPath" type="xs:string"/>
+              <xs:element name="RemissionGuideReportPath" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="PFEConnector">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="Tipo" type="xs:string"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

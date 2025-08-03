@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--<?import org.kordamp.ikonli.javafx.FontIcon?>-->
+
+<?import com.jfoenix.controls.JFXBadge?>
+<?import com.jfoenix.controls.JFXToggleButton?>
+<?import com.jfoenix.controls.JFXToggleNode?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import org.fxmisc.richtext.StyleClassedTextArea?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
+
+<BorderPane styleClass="card" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ventura.soluciones.ejecutable.controller.TabController">
+    <center>
+        <VBox layoutX="689.0" layoutY="14.0" spacing="9.0" styleClass="card">
+            <children>
+                <BorderPane>
+                    <left>
+                        <Label fx:id="headerLabel" styleClass="card-title" text="Componente" BorderPane.alignment="CENTER" />
+                    </left>
+                    <right>
+                        <JFXToggleNode fx:id="toggleButton" pickOnBounds="false" styleClass="toggle-icon3" />
+                    </right>
+                </BorderPane>
+                <Separator prefWidth="200.0" />
+                <BorderPane style="-fx-background-radius: 1px;" styleClass="resize-border" VBox.vgrow="ALWAYS">
+                    <top>
+                        <BorderPane BorderPane.alignment="CENTER">
+                            <left>
+                                <JFXToggleButton fx:id="startButon" onAction="#startStopProcess" text="Iniciar Componente" BorderPane.alignment="CENTER" />
+                            </left>
+                            <BorderPane.margin>
+                                <Insets bottom="15.0" />
+                            </BorderPane.margin>
+                            <right>
+                                <Pane prefHeight="7.0" prefWidth="20.0" BorderPane.alignment="CENTER">
+                                    <children>
+                                        <JFXBadge fx:id="notificacion" position="TOP_RIGHT" styleClass="icons-badge" text="1">
+                                            <StackPane style="-fx-padding: 10;">
+                                                <FontIcon iconLiteral="gmi-notifications-active" iconSize="24" styleClass="icon" />
+                                            </StackPane>
+                                            <padding>
+                                                <Insets top="10.0" />
+                                            </padding>
+                                        </JFXBadge>
+                                    </children>
+                                    <padding>
+                                        <Insets top="40.0" />
+                                    </padding>
+                                    <BorderPane.margin>
+                                        <Insets right="30.0" />
+                                    </BorderPane.margin>
+                                </Pane>
+                            </right>
+                        </BorderPane>
+                    </top>
+                    <center>
+                        <StyleClassedTextArea fx:id="console" BorderPane.alignment="CENTER" />
+                    </center>
+                </BorderPane>
+            </children>
+        </VBox>
+    </center>
+</BorderPane>

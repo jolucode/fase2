@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog" prefer="system">
+    <system systemId="https://proy.ose.tci.net.pe/ol-ti-itcpe-2/ws/billService?wsdl" uri="xml-resources/web-service-references/billService/wsdl/proy.ose.tci.net.pe/ol-ti-itcpe-2/ws/billService.wsdl"/>
+    <system systemId="https://ose.tci.net.pe/ol-ti-itcpe-2/ws/billService?wsdl" uri="xml-resources/web-service-references/billService_1/wsdl/ose.tci.net.pe/ol-ti-itcpe-2/ws/billService.wsdl"/>
+    <system systemId="https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?wsdl" uri="xml-resources/web-service-references/billService_2/wsdl/e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService.wsdl"/>
+    <system systemId="https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService?ns1.wsdl" uri="xml-resources/web-service-references/billService_2/wsdl/e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService.ns1.wsdl"/>
+    <system systemId="https://e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService.xsd2.xsd" uri="xml-resources/web-service-references/billService_2/wsdl/e-beta.sunat.gob.pe/ol-ti-itcpfegem-beta/billService.xsd2.xsd"/>
+    <system systemId="https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService?wsdl" uri="xml-resources/web-service-references/billService_3/wsdl/e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService.wsdl"/>
+    <system systemId="https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService?ns2.wsdl" uri="xml-resources/web-service-references/billService_3/wsdl/e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService.ns2.wsdl"/>
+    <system systemId="https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService?ns1.wsdl" uri="xml-resources/web-service-references/billService_ns1/wsdl/e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService.ns1.wsdl"/>
+    <system systemId="https://e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService.xsd2.xsd" uri="xml-resources/web-service-references/billService_ns1/wsdl/e-factura.sunat.gob.pe/ol-ti-itcpfegem/billService.xsd2.xsd"/>
+</catalog>

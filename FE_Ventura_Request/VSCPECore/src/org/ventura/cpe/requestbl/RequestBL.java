@@ -1,0 +1,336 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package org.ventura.cpe.requestbl;
+
+import com.sap.smb.sbo.api.ICompany;
+import com.sap.smb.sbo.api.SBOCOMException;
+import org.ventura.cpe.bl.PublicardocWsBL;
+import org.ventura.cpe.bl.TransaccionBL;
+import org.ventura.cpe.bl.TransaccionBajaBL;
+import org.ventura.cpe.bl.UsuarioCampoBL;
+import org.ventura.cpe.dao.DocumentoDAO;
+import org.ventura.cpe.dao.controller.BdCodErrorSunat;
+import org.ventura.cpe.dto.TransaccionRespuesta;
+import org.ventura.cpe.dto.hb.*;
+import org.ventura.cpe.ex.DocumentoINF;
+import org.ventura.cpe.excepciones.VenturaExcepcion;
+import org.ventura.cpe.log.LoggerTrans;
+import org.ventura.cpe.pfeconn.TransaccionPFE;
+import org.ventura.cpe.sb1.DocumentoBL;
+import org.ventura.utilidades.entidades.VariablesGlobales;
+import org.ventura.wsclient.config.configuration.Configuracion;
+
+import java.sql.Connection;
+import java.util.*;
+import java.util.concurrent.Semaphore;
+import java.util.logging.Level;
+
+/**
+ * @author Percy
+ */
+public class RequestBL {
+
+    private static ICompany buscarSociedad(String idBD) {
+        return DocumentoBL.mapSociedades.get(idBD);
+    }
+
+    public static void EnviarTransacciones(Connection connection, Configuracion configuration) throws Exception {
+        Runtime recolector = Runtime.getRuntime();
+        Semaphore semaphore = new Semaphore(10);
+        if (semaphore.tryAcquire()) {
+            try {
+                List<Transaccion> disp = TransaccionBL.ListarDisponibles();
+
+
+                if (!disp.isEmpty()) {
+                    //LoggerTrans.getCDThreadLogger().log(Level.INFO, "EnviarTransacciones: Se encontraron {0} transaccion(es) pendiente(s) de envío", new Object[]{disp.size()});
+                    LoggerTrans.getCDThreadLogger().log(Level.INFO, "EnviarTransacciones: Conexion exitosa a internet");
+                    for (Transaccion tc : disp) {
+                        String lastState = tc.getFEEstado();
+                        //Busca la sociedad que envio a la BDFE la transaccion que se va a procesar
+                        try {
+                            ICompany Sociedad = buscarSociedad(tc.getKeySociedad());
+//                                LoggerTrans.getCDThreadLogger().log(Level.INFO, "ENVIO DE TRX. DE LA SOCIEDAD: {0}", new Object[]{Sociedad.getCompanyName()});
+                            List<TransaccionTotales> transaccionTotalesList = tc.getTransaccionTotalesList();
+                            for (TransaccionTotales transaccionTotal : transaccionTotalesList) {
+                                transaccionTotal.setTransaccion(tc);
+                            }
+
+                            List<TransaccionLineas> transaccionLineasList = tc.getTransaccionLineasList();
+                            for (TransaccionLineas transaccionLineas : transaccionLineasList) {
+                                transaccionLineas.setTransaccion(tc);
+                            }
+
+                            List<TransaccionContractdocref> transaccionContractdocrefList = tc.getTransaccionContractdocrefList();
+                            for (TransaccionContractdocref transaccionContract : transaccionContractdocrefList) {
+                                int usuarioId = transaccionContract.getTransaccionContractdocrefPK().getUSUCMPId();
+                                transaccionContract.setUsuariocampos(UsuarioCampoBL.getCampoUsuaro(usuarioId));
+                            }
+                            for (TransaccionLineas transaccionLinea : transaccionLineasList) {
+                                for (int j = 0; j < transaccionLinea.getTransaccionLineasUsucamposList().size(); j++) {
+                                    int usuarioId = transaccionLinea.getTransaccionLineasUsucamposList().get(j).getTransaccionLineasUsucamposPK().getUSUCMPId();
+                                    transaccionLinea.getTransaccionLineasUsucamposList().get(j).setUsuariocampos(UsuarioCampoBL.getCampoUsuaro(usuarioId));
+                                }
+                            }
+
+                            TransaccionBL.GenerarIDyFecha(tc); //AQUI
+                            TransaccionRespuesta tr = TransaccionPFE.Conector.EnviarTransaccion(tc, DocumentoINF.getGetEnviarTransaccion(), Sociedad, configuration, connection);
+                            tc.setTicketRest(tr.getTicketRest());
+                            System.out.println("Mostrando la respuesta del servicio");
+                            TransaccionBL.MarcarPDFBorrador(tc);
+                            Map<String, String> listaRuta = new HashMap();
+                            PublicardocWs publicarDocWS = new PublicardocWs();
+                            System.out.println();
+                            System.out.println(tr.getCodigo());
+                            System.out.println();
+
+                            switch (tr.getCodigo()) {
+                                /**
+                                 * Para las tres respuesta se publicara de
+                                 * igual manera el documento.*
+                                 */
+                                case TransaccionRespuesta.RSP_RAZON_BAJA:
+                                    DocumentoDAO.ActualizarMensaje(tc, tr.getMensaje(), "E", Sociedad,connection);
+                                    TransaccionBL.Eliminar(tc);
+                                    LoggerTrans.getCDThreadLogger().log(Level.SEVERE, "No se genera ticket, porque no se ha ingresado el motivo ", tc.getFEId());
+                                    break;
+                                case TransaccionRespuesta.RSP_EMITDO_ESPERA:
+                                    TransaccionBL.CdrNuloNoPorExcepcion(tc);
+                                    DocumentoDAO.ActualizarMensaje(tc, tr.getMensaje(), "K", Sociedad,connection);
+                                    DocumentoINF.GetEnviarTransaccion.AgregarAnexos(tc, tr.getXml(), tr.getPdf(), null, Boolean.FALSE, Sociedad, connection);
+                                    LoggerTrans.getCDThreadLogger().log(Level.SEVERE, "Se procedi\u00f3 a actualizar la transacción : {0} por respuesta NULA. Se esta pasando a corregido. ", tc.getFEId());
+                                    break;
+                                case TransaccionRespuesta.RQT_EMITIDO_CDR_NULO:
+                                    TransaccionBL.CdrNuloNoPorExcepcion(tc);
+                                    DocumentoDAO.ActualizarMensaje(tc, tr.getMensaje(), lastState, Sociedad,connection);
+                                    LoggerTrans.getCDThreadLogger().log(Level.SEVERE, "Se procedi\u00f3 a actualizar la transacción : {0} por respuesta NULA. Se esta pasando a corregido. ", tc.getFEId());
+                                    break;
+                                case TransaccionRespuesta.RQT_EMITIDO_EXCEPTION_1033:
+                                case TransaccionRespuesta.RQT_EMITIDO_EXCEPTION:
+                                case TransaccionRespuesta.RQT_BAJA_EXCEPCION:
+                                    //TransaccionBL.Nueva_Excepcion_1033(tc);
+                                    DocumentoDAO.ActualizarMensaje(tc, tr.getMensaje(), "E", Sociedad,connection);
+                                    TransaccionBL.Eliminar(tc);
+                                    LoggerTrans.getCDThreadLogger().log(Level.SEVERE, "Se procedi\u00f3 a actualizar la transacción : {0} por excepciones 1033 ", tc.getFEId());
+                                    break;
+                                case TransaccionRespuesta.RSP_EMITIDO_APROBADO:
+                                case TransaccionRespuesta.RQT_EMITIDO_RECHAZADO:
+                                case TransaccionRespuesta.RQT_EMITIDO_APROBADO:
+                                case TransaccionRespuesta.RQT_EMITDO_ESPERA:
+                                    if (VariablesGlobales.UsoSunat) {
+                                        if ((tc.getDOCCodigo().equalsIgnoreCase("03") || tc.getDOCCodigo().equalsIgnoreCase("07") || tc.getDOCCodigo().equalsIgnoreCase("08")) && tc.getDOCSerie().substring(0, 1).equalsIgnoreCase("B")) {
+                                            listaRuta = DocumentoINF.GetEnviarTransaccion.AgregarAnexos(tc, tr.getXml(), tr.getPdf(), tr.getZip(), Boolean.FALSE, Sociedad, connection);
+                                            //listaRuta.forEach((key, value) -> System.out.print(key + ": " + value));
+                                            if(tr.getSunat().getMensaje().contains("espera"))   publicarDocWS = crearObjectPublicardocWs(tc, listaRuta, false, Sociedad.getCompanyName());
+                                            else publicarDocWS = crearObjectPublicardocWs(tc, listaRuta, false, Sociedad.getCompanyName());
+
+
+                                            PublicardocWsBL.Crear(publicarDocWS);
+                                            DocumentoINF.GetEnviarTransaccion.ActualizarRespuestaSUNAT(tc, tr.getSunat().toString(), true, Sociedad, connection);
+                                            TransaccionBL.Eliminar(tc);
+                                        } else {
+                                            Optional<TransaccionRespuesta> optional = Optional.of(tr);
+                                            Optional<byte[]> optionalZip = optional.map(TransaccionRespuesta::getZip);
+                                            if (optionalZip.isPresent()) {
+                                                listaRuta = DocumentoINF.GetEnviarTransaccion.AgregarAnexos(tc, tr.getXml(), tr.getPdf(), tr.getZip(), Boolean.FALSE, Sociedad, connection);
+                                                System.out.println();
+                                                System.out.println("Documentos anexados:");
+                                                publicarDocWS = crearObjectPublicardocWs(tc, listaRuta, tr.getSunat().isAceptado(), Sociedad.getCompanyName());
+                                                PublicardocWsBL.Crear(publicarDocWS);
+                                                System.out.println();
+                                            }
+                                            Optional<TransaccionRespuesta.Sunat> optionalSunat = optional.map(TransaccionRespuesta::getSunat);
+                                            if (!optionalSunat.isPresent()) {
+                                                TransaccionBL.MarcarRecepcionado(tc);
+                                            } else {
+                                                DocumentoINF.GetEnviarTransaccion.ActualizarRespuestaSUNAT(tc, tr.getSunat().toString(), tr.getSunat().isAceptado(), Sociedad, connection);
+                                                TransaccionBL.Eliminar(tc);
+                                            }
+                                        }
+                                    } else {
+                                        listaRuta = DocumentoINF.GetEnviarTransaccion.AgregarAnexos(tc, tr.getXml(), tr.getPdf(), tr.getZip(), Boolean.FALSE, Sociedad, connection);
+                                        publicarDocWS = crearObjectPublicardocWs(tc, listaRuta, true, Sociedad.getCompanyName());
+                                        PublicardocWsBL.Crear(publicarDocWS);
+                                        TransaccionBL.Eliminar(tc);
+                                        DocumentoINF.GetEnviarTransaccion.ActualizarRespuestaSUNAT(tc, tr.getSunat().toString(), true, Sociedad, connection);
+                                    }
+                                    break;
+                                case TransaccionRespuesta.DEFAULT:
+                                    TransaccionBL.AcumularReintentos(tc);
+                                    TransaccionBL.Eliminar(tc);
+                                    break;
+                                case TransaccionRespuesta.RQT_BAJA_APROBADO:
+                                case TransaccionRespuesta.RQT_BAJA_RECHAZADO:
+                                    String ticket = Optional.ofNullable(tr.getNroTique()).orElse("");
+                                    System.out.println(ticket);
+                                    TransaccionBL.MarcarRecepcionado(tc);
+                                    TransaccionBL.ActualizarTique(tc, ticket);
+                                    TransaccionBajaBL.ActualizarIDBaja(tc);
+                                    break;
+                                case TransaccionRespuesta.RSP_BAJA_APROBADO:
+                                case TransaccionRespuesta.RSP_BAJA_RECHAZADO:
+                                    listaRuta = DocumentoINF.getGetEnviarConsulta().AgregarAnexos(tc, tr.getXml(), tr.getPdf(), tr.getZip(), Boolean.FALSE, Sociedad, connection);
+                                    LoggerTrans.getCDThreadLogger().log(Level.INFO, "Se realiz\u00f3 el anexado de los documentos.");
+                                    DocumentoINF.getGetEnviarConsulta().ActualizarRespuestaSUNAT(tc, tr.getSunat().toString(), tr.getSunat().isAceptado(), Sociedad, connection);
+                                    publicarDocWS = crearObjectPublicardocWsBaja(tc, listaRuta, tr.getSunat().isAceptado(), tr.getSunat().getCodigo(), Sociedad.getCompanyName());
+                                    PublicardocWsBL.Crear(publicarDocWS);
+                                    TransaccionBL.Eliminar(tc);
+                                    break;
+                                case TransaccionRespuesta.RQT_EMITIDO_ERROR:
+                                case TransaccionRespuesta.RQT_BAJA_ERROR:
+                                case TransaccionRespuesta.RQT_ERROR:
+                                    TransaccionBL.PonerEnCorreccion(tc, tr.getCodigoWS(), tr.getMensaje());
+                                    if (TransaccionBL.Eliminar(tc)) {
+                                        if (tr.getSunat() == null) {
+                                            DocumentoINF.GetEnviarTransaccion.ActualizarMensaje(tc, "[" + tc.getDOCId() + "]-(" + tr.getCodigoWS() + ") " + tr.getMensaje(), "E", Sociedad, connection);
+                                        } else {
+                                            listaRuta = DocumentoINF.GetEnviarTransaccion.AgregarAnexos(tc, tr.getXml(), tr.getPdf(), tr.getZip(), Boolean.FALSE, Sociedad, connection);
+                                            publicarDocWS = crearObjectPublicardocWs(tc, listaRuta, tr.getSunat().isAceptado(), Sociedad.getCompanyName());
+                                            PublicardocWsBL.Crear(publicarDocWS);
+                                            DocumentoINF.GetEnviarTransaccion.ActualizarRespuestaSUNAT(tc, tr.getSunat().toString(), tr.getSunat().isAceptado(), Sociedad, connection);
+                                        }
+                                    } else {
+                                        throw new VenturaExcepcion("Error al intentar eliminar Transaccion de la cola");
+                                    }
+                                    break;
+                                case TransaccionRespuesta.RQT_EMITIDO_PENDIENTE_CDR:
+                                    TransaccionBL.Eliminar(tc);
+                                    DocumentoINF.GetEnviarTransaccion.ActualizarMensaje(tc, "[" + tc.getDOCId() + "]-(" + tr.getCodigoWS() + ") Pendiente de CDR", "C", Sociedad, connection);
+                                    break;
+                                case TransaccionRespuesta.RSP_EMITIDO_EN_PROCESO_REST:
+                                    DocumentoINF.GetEnviarTransaccion.ActualizarRespuestaSUNAT(tc,tr.getMensaje() /*tr.getSunat().toString()*/, tr.getSunat().isAceptado(), Sociedad, connection);
+                                    TransaccionBL.Eliminar(tc);
+                                    break;
+                                case TransaccionRespuesta.RSP_EMITIDO_RECHAZADO_REST:
+                                case TransaccionRespuesta.RSP_EMITIDO_APROBADO_REST:
+                                    Optional<TransaccionRespuesta> optional2 = Optional.of(tr);
+                                    Optional<byte[]> optionalZip2 = optional2.map(TransaccionRespuesta::getZip);
+                                    if (optionalZip2.isPresent()) {
+                                        listaRuta = DocumentoINF.GetEnviarTransaccion.AgregarAnexos(tc, tr.getXml(), tr.getPdf(), tr.getZip(), Boolean.FALSE, Sociedad, connection);
+                                        System.out.println();
+                                        System.out.println("Documentos anexados:");
+
+                                        if(tr.getCodigo() == 00){
+                                            publicarDocWS = crearObjectPublicardocWs(tc, listaRuta, tr.getSunat().isAceptado(), Sociedad.getCompanyName());
+                                            PublicardocWsBL.Crear(publicarDocWS);
+                                        }
+                                        System.out.println();
+                                    }
+                                    Optional<TransaccionRespuesta.Sunat> optionalSunat2 = optional2.map(TransaccionRespuesta::getSunat);
+                                    if (!optionalSunat2.isPresent()) {
+                                        TransaccionBL.MarcarRecepcionado(tc);
+                                    } else {
+                                        DocumentoINF.GetEnviarTransaccion.ActualizarRespuestaSUNAT(tc, tr.getMensaje(), tr.getSunat().isAceptado(), Sociedad, connection);
+                                        TransaccionBL.Eliminar(tc);
+                                    }
+                                    TransaccionBL.Eliminar(tc);
+                                    break;
+                                default:
+                                    LoggerTrans.getCDThreadLogger().log(Level.WARNING, "La respuesta no esta contemplada");
+                                    break;
+                            }
+
+                        } catch (VenturaExcepcion ex) {
+                            TransaccionBL.Eliminar(tc);
+                            LoggerTrans.getCDThreadLogger().log(Level.SEVERE, ex.getMessage());
+                        }
+                    }
+                }
+                disp.clear();
+            } catch (VenturaExcepcion ex) {
+                LoggerTrans.getCDThreadLogger().log(Level.SEVERE, ex.getMessage());
+            }
+            semaphore.release();
+        }
+        recolector.gc();
+    }
+
+    public static PublicardocWs crearObjectPublicardocWs(Transaccion tc, Map<String, String> listaRuta, boolean band, String nombreSociedad) {
+        PublicardocWs publicardocWs = new PublicardocWs();
+        publicardocWs.setFEId(tc.getFEId());
+        publicardocWs.setRSRuc(tc.getDocIdentidadNro());
+        publicardocWs.setRSDescripcion(nombreSociedad);
+        publicardocWs.setDOCId(tc.getDOCId());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.HOUR, Integer.parseInt(TransaccionRespuesta.WS_TIEMPOPUBLICACION));
+        System.out.println("****************************************************************************************");
+        publicardocWs.setFechaPublicacionPortal(calendar.getTime());
+        publicardocWs.setDOCFechaEmision(tc.getDOCFechaEmision());
+        publicardocWs.setDOCMontoTotal(tc.getDOCMontoTotal());
+        publicardocWs.setDOCCodigo(tc.getDOCCodigo());
+        publicardocWs.setSNDocIdentidadNro(tc.getSNDocIdentidadNro());
+        publicardocWs.setSNRazonSocial(tc.getSNRazonSocial());
+        publicardocWs.setSNEMail(tc.getSNEMail());
+        if (Optional.ofNullable(listaRuta).isPresent()) {
+            System.out.println();
+            listaRuta.forEach((key, value) -> System.out.println(key + ": " + value));
+            publicardocWs.setRutaPDF(listaRuta.get("rutaPDF"));
+            publicardocWs.setRutaXML(listaRuta.get("rutaXML"));
+            publicardocWs.setRutaZIP(listaRuta.get("rutaCDR"));
+        }
+        publicardocWs.setFETipoTrans(tc.getFETipoTrans());
+        publicardocWs.setSNEMailSecundario(tc.getSNEMailSecundario());
+        if (band) {
+            publicardocWs.setEstadoSUNAT('V');
+        } else {
+            if ("03".equals(tc.getDOCCodigo())) {
+                publicardocWs.setEstadoSUNAT('D');
+            } else {
+                publicardocWs.setEstadoSUNAT('R');
+            }
+        }
+        publicardocWs.setDOCMONCodigo(tc.getDOCMONCodigo());
+        publicardocWs.setDOCMONNombre(tc.getDOCMONNombre());
+        publicardocWs.setEMailEmisor(tc.getEMail());
+        publicardocWs.setEstadoPublicacion('A');
+
+        return publicardocWs;
+    }
+
+    public static PublicardocWs crearObjectPublicardocWsBaja(Transaccion tc, Map<String, String> listaRuta, boolean band, int codigoResponse, String nombreSociedad) {
+
+        PublicardocWs publicardocWs = new PublicardocWs();
+        publicardocWs.setFEId(tc.getFEId());
+        publicardocWs.setRSRuc(tc.getDocIdentidadNro());
+        publicardocWs.setRSDescripcion(nombreSociedad);
+        publicardocWs.setDOCId(tc.getDOCId());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.HOUR, Integer.parseInt(TransaccionRespuesta.WS_TIEMPOPUBLICACION));
+        publicardocWs.setFechaPublicacionPortal(calendar.getTime());
+        publicardocWs.setDOCFechaEmision(tc.getDOCFechaEmision());
+        publicardocWs.setDOCMontoTotal(tc.getDOCMontoTotal());
+        publicardocWs.setDOCCodigo(tc.getDOCCodigo());
+        publicardocWs.setSNDocIdentidadNro(tc.getSNDocIdentidadNro());
+        publicardocWs.setSNRazonSocial(tc.getSNRazonSocial());
+        publicardocWs.setSNEMail(tc.getSNEMail());
+        if (Optional.ofNullable(listaRuta).isPresent()) {
+            publicardocWs.setRutaPDF(listaRuta.get("rutaPDF"));
+            publicardocWs.setRutaXML(listaRuta.get("rutaXML"));
+            publicardocWs.setRutaZIP(listaRuta.get("rutaCDR"));
+        }
+        publicardocWs.setFETipoTrans(tc.getFETipoTrans());
+        publicardocWs.setSNEMailSecundario(tc.getSNEMailSecundario());
+        if (band) {
+            publicardocWs.setEstadoSUNAT('V');
+        } else {
+            if ("03".equals(tc.getDOCCodigo())) {
+                publicardocWs.setEstadoSUNAT('D');
+            } else if (codigoResponse == 2106) {//CODIGO AÑADIDO PARA MANDAR AL PORTAL COMO APROBADO CUANDO EL DOCUMENTO YA ESTA EMITIDO EN SUNAT
+                LoggerTrans.getCDThreadLogger().log(Level.INFO, "Aprobado para publicacion de comunicacion de baja al enviar por 2da vez a sunat");
+                publicardocWs.setEstadoSUNAT('V');
+            } else {
+                publicardocWs.setEstadoSUNAT('R');
+            }
+        }
+        publicardocWs.setDOCMONCodigo(tc.getDOCMONCodigo());
+        publicardocWs.setDOCMONNombre(tc.getDOCMONNombre());
+        publicardocWs.setEMailEmisor(tc.getEMail());
+        publicardocWs.setEstadoPublicacion('A');
+        return publicardocWs;
+    }
+}

@@ -1,0 +1,1 @@
+call "bpvs_FE_FacturaTotales" ('%s',%s)

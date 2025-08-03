@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/Configurador/configurador.iml" filepath="$PROJECT_DIR$/Configurador/configurador.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Request/request.iml" filepath="$PROJECT_DIR$/Request/request.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Response/response.iml" filepath="$PROJECT_DIR$/Response/response.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Resumen/resumen.iml" filepath="$PROJECT_DIR$/Resumen/resumen.iml" />
+    </modules>
+  </component>
+</project>

@@ -1,0 +1,11 @@
+package sunat.names.specification.ubl.peru.schema.xsd.sunataggregatecomponents_1;
+
+import oasis.names.specification.ubl.schema.xsd.commonbasiccomponents_2.AmountType;
+
+import java.io.Serializable;
+
+public class SUNATRetentionAmountType extends AmountType implements Serializable {
+	
+	
+
+}

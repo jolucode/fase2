@@ -1,0 +1,13 @@
+${AnsiBackground.BLACK}${AnsiColor.GREEN}
+${AnsiBackground.BLACK}${AnsiColor.GREEN} _   _            _                     _____       _            _
+${AnsiBackground.BLACK}${AnsiColor.GREEN}| | | |          | |                   /  ___|     | |          (_)
+${AnsiBackground.BLACK}${AnsiColor.GREEN}| | | | ___ _ __ | |_ _   _ _ __ __ _  \ `--.  ___ | |_   _  ___ _  ___  _ __   ___  ___
+${AnsiBackground.BLACK}${AnsiColor.GREEN}| | | |/ _ \ '_ \| __| | | | '__/ _` |  `--. \/ _ \| | | | |/ __| |/ _ \| '_ \ / _ \/ __|
+${AnsiBackground.BLACK}${AnsiColor.GREEN}\ \_/ /  __/ | | | |_| |_| | | | (_| | /\__/ / (_) | | |_| | (__| | (_) | | | |  __/\__ \
+${AnsiBackground.BLACK}${AnsiColor.GREEN} \___/ \___|_| |_|\__|\__,_|_|  \__,_| \____/ \___/|_|\__,_|\___|_|\___/|_| |_|\___||___/
+
+${AnsiBackground.BLACK}${AnsiColor.RED} +-+-+-+-+-+-+-+-+-+-+-+-+ +-+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-
+${AnsiBackground.BLACK}${AnsiColor.RED} |C|o|n|f|i|g|u|r|a|d|o|r| |V|e|r|s|i|o|n| |2||4|.|0|4|.|0|0|0|3|
+${AnsiBackground.BLACK}${AnsiColor.RED} +-+-+-+-+-+-+-+-+-+-+-+-+ +-+-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+-+-
+
+

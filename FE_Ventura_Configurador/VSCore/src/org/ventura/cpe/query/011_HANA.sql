@@ -1,0 +1,1 @@
+call "bpvs_FE_ComprobantesPago" ('%s',%s)

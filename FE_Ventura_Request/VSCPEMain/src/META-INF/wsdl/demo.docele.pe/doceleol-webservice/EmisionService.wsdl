@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://facele.pe/docele/dol/services/EmisionService/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="EmisionService" targetNamespace="http://facele.pe/docele/dol/services/EmisionService/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://facele.pe/docele/dol/services/EmisionService/" targetNamespace="http://facele.pe/docele/dol/services/EmisionService/" version="1.0">
+
+  <xs:element name="Consultar">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="rucEmisor" type="xs:string"/>
+        <xs:element name="tipoDocumento" type="xs:string"/>
+        <xs:element minOccurs="0" name="serie" type="xs:string"/>
+        <xs:element minOccurs="0" name="correlativo" type="xs:string"/>
+        <xs:element minOccurs="0" name="fechaEmision" type="xs:date"/>
+        <xs:element minOccurs="0" name="periodoEmision" type="xs:gYearMonth"/>
+        <xs:element minOccurs="0" name="offset" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ConsultarResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="return" type="tns:ConsultarResultado"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Declarar">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="rucEmisor" type="xs:string"/>
+        <xs:element name="tipoDocumento" type="xs:string"/>
+        <xs:element name="formato">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="TXTv1.0"/>
+              <xs:enumeration value="XMLv1.0"/>
+              <xs:enumeration value="XMLv1.1"/>
+              <xs:enumeration value="UBL_SIGNEDv1.0"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element name="documento" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="DeclararResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="return" type="tns:DeclararResultado"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="Obtener">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="rucEmisor" type="xs:string"/>
+        <xs:element name="tipoDocumento" type="xs:string"/>
+        <xs:element name="serie" type="xs:string"/>
+        <xs:element name="correlativo" type="xs:string"/>
+        <xs:element name="formato">
+          <xs:simpleType>
+            <xs:restriction base="xs:string">
+              <xs:enumeration value="PDF"/>
+              <xs:enumeration value="XML"/>
+              <xs:enumeration value="PDF417"/>
+              <xs:enumeration value="HASH"/>
+              <xs:enumeration value="XML_SIGNED"/>
+              <xs:enumeration value="QRCODE"/>
+            </xs:restriction>
+          </xs:simpleType>
+        </xs:element>
+        <xs:element minOccurs="0" name="cantidad" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="ObtenerResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="return" type="tns:ObtenerResultado"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType name="ObtenerResultado">
+    <xs:sequence>
+      <xs:element name="respuesta" type="tns:RespuestaOperacionType"/>
+      <xs:element minOccurs="0" name="PDF" type="xs:base64Binary"/>
+      <xs:element minOccurs="0" name="XML" type="xs:string"/>
+      <xs:element minOccurs="0" name="PDF417" type="xs:base64Binary"/>
+      <xs:element minOccurs="0" name="HASH" type="xs:string"/>
+      <xs:element minOccurs="0" name="XML_SIGNED" type="xs:string"/>
+      <xs:element minOccurs="0" name="QRCODE" type="xs:base64Binary"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RespuestaOperacionType">
+    <xs:sequence>
+      <xs:element name="estado" type="xs:int"/>
+      <xs:element name="descripcion" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ConsultarResultado">
+    <xs:sequence>
+      <xs:element name="respuesta" type="tns:RespuestaOperacionType"/>
+      <xs:element minOccurs="0" name="registros">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="registro" type="tns:RegistroType"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="RegistroType">
+    <xs:sequence>
+      <xs:element name="tipoDocumento" type="xs:string"/>
+      <xs:element name="serie" type="xs:string"/>
+      <xs:element name="correlativo" type="xs:string"/>
+      <xs:element name="fechaEmision" type="xs:date"/>
+      <xs:element name="tipoIdentificacionReceptor" type="xs:string"/>
+      <xs:element name="numeroIdentificacionReceptor" type="xs:string"/>
+      <xs:element name="razonSocialReceptor" type="xs:string"/>
+      <xs:element name="montoTotal" type="xs:decimal"/>
+      <xs:element name="estadoSUNAT" type="xs:string"/>
+      <xs:element name="descripcionSUNAT" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DeclararResultado">
+    <xs:sequence>
+      <xs:element name="respuesta" type="tns:RespuestaOperacionType"/>
+      <xs:element minOccurs="0" name="serieComprobante" type="xs:string"/>
+      <xs:element minOccurs="0" name="correlativoComprobante" type="xs:string"/>
+      <xs:element minOccurs="0" name="hashComprobante" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="ConsultarResponse">
+    <wsdl:part element="tns:ConsultarResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Obtener">
+    <wsdl:part element="tns:Obtener" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="DeclararResponse">
+    <wsdl:part element="tns:DeclararResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Declarar">
+    <wsdl:part element="tns:Declarar" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="Consultar">
+    <wsdl:part element="tns:Consultar" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ObtenerResponse">
+    <wsdl:part element="tns:ObtenerResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="EmisionService">
+    <wsdl:operation name="Obtener">
+      <wsdl:input message="tns:Obtener" name="Obtener">
+    </wsdl:input>
+      <wsdl:output message="tns:ObtenerResponse" name="ObtenerResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consultar">
+      <wsdl:input message="tns:Consultar" name="Consultar">
+    </wsdl:input>
+      <wsdl:output message="tns:ConsultarResponse" name="ConsultarResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Declarar">
+      <wsdl:input message="tns:Declarar" name="Declarar">
+    </wsdl:input>
+      <wsdl:output message="tns:DeclararResponse" name="DeclararResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EmisionServiceSoapBinding" type="tns:EmisionService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="Obtener">
+      <soap:operation soapAction="http://facele.pe/docele/dol/services/EmisionService/Obtener" style="document"/>
+      <wsdl:input name="Obtener">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ObtenerResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Consultar">
+      <soap:operation soapAction="http://facele.pe/docele/dol/services/EmisionService/Consultar" style="document"/>
+      <wsdl:input name="Consultar">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="ConsultarResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Declarar">
+      <soap:operation soapAction="http://facele.pe/docele/dol/services/EmisionService/Declarar" style="document"/>
+      <wsdl:input name="Declarar">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="DeclararResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EmisionService">
+    <wsdl:port binding="tns:EmisionServiceSoapBinding" name="EmisionServicePort">
+      <soap:address location="https://demo.docele.pe/doceleol-webservice/EmisionService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

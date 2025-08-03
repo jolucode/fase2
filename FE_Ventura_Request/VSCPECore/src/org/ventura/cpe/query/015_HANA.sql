@@ -1,0 +1,1 @@
+call "bpvs_SP_SUNAT_1401_RegistroDeVentas" ('%s','%s','%s')

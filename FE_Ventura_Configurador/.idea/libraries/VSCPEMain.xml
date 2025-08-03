@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="VSCPEMain">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/VSCPEMain/dist/VSCPEMain.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

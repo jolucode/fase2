@@ -1,0 +1,1 @@
+exec [dbo].[bpvs_FE_FacturaPropiedades] %s,%s

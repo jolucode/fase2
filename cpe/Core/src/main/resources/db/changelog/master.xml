@@ -1,0 +1,1220 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.8.xsd">
+
+    <property name="now" value="now()" dbms="h2"/>
+    <property name="now" value="current_timestamp" dbms="postgresql"/>
+
+    <property name="floatType" value="float4" dbms="postgresql, h2"/>
+    <property name="floatType" value="float" dbms="mysql, oracle, mssql, mariadb"/>
+    <property name="clobType" value="longvarchar" dbms="h2"/>
+    <property name="clobType" value="clob" dbms="mysql, oracle, mssql, mariadb, postgresql"/>
+    <property name="uuidType" value="uuid" dbms="h2, postgresql"/>
+
+    <!--    <include file="db/changelog/00000000000000_initial_schema.xml" relativeToChangelogFile="false"/>-->
+
+    <changeSet author="yosme" id="1579018865343-1">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_ANTICIPO"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_ANTICIPO">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_ANTICIPO"/>
+            </column>
+            <column name="NroAnticipo" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_ANTICIPO"/>
+            </column>
+            <column name="Anticipo_Monto" type="decimal(19, 6)"/>
+            <column name="AntiDOC_Tipo" type="varchar(2)"/>
+            <column name="AntiDOC_Serie_Correlativo" type="varchar(15)"/>
+            <column name="DOC_Numero" type="varchar(15)"/>
+            <column name="DOC_Moneda" type="varchar(15)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="DOC_Tipo" type="varchar(2)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_LINEA_IMPUESTOS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_LINEA_IMPUESTOS">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_LINEA_IMPUESTOS"/>
+            </column>
+            <column name="LineId" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_LINEA_IMPUESTOS"/>
+            </column>
+            <column name="NroOrden" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_LINEA_IMPUESTOS"/>
+            </column>
+            <column name="Moneda" type="varchar(10)"/>
+            <column name="Monto" type="decimal(19, 6)"/>
+            <column name="Porcentaje" type="decimal(19, 6)"/>
+            <column name="TipoTributo" type="varchar(30)"/>
+            <column name="TipoAfectacion" type="varchar(30)"/>
+            <column name="ValorVenta" type="decimal(19, 6)"/>
+            <column name="Abreviatura" type="varchar(6)"/>
+            <column name="Codigo" type="varchar(1)"/>
+            <column name="Nombre" type="varchar(50)"/>
+            <column name="TierRange" type="varchar(30)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-3">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_DOCREFERS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_DOCREFERS">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_DOCREFERS"/>
+            </column>
+            <column name="LineId" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_DOCREFERS"/>
+            </column>
+            <column name="Tipo" type="varchar(2)"/>
+            <column name="Id" type="varchar(500)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-4">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_TOTALES"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_TOTALES">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_TOTALES"/>
+            </column>
+            <column name="Id" type="varchar(4)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_TOTALES"/>
+            </column>
+            <column name="Monto" type="decimal(19, 6)"/>
+            <column name="Prcnt" type="decimal(19, 6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-5">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_LINEAS_USUCAMPOS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_LINEAS_USUCAMPOS">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_LINEAS_USUCAMPOS"/>
+            </column>
+            <column name="NroOrden" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_LINEAS_USUCAMPOS"/>
+            </column>
+            <column name="USUCMP_Id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_LINEAS_USUCAMPOS"/>
+            </column>
+            <column name="Valor" type="clob"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-6">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_LINEAS_BILLREF"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_LINEAS_BILLREF">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_LINEAS_BILLREF"/>
+            </column>
+            <column name="NroOrden" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_LINEAS_BILLREF"/>
+            </column>
+            <column name="LineId" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_LINEAS_BILLREF"/>
+            </column>
+            <column name="AdtDocRef_Id" type="varchar(50)"/>
+            <column name="AdtDocRef_SchemaId" type="varchar(30)"/>
+            <column name="InvDocRef_DocTypeCode" type="varchar(10)"/>
+            <column name="InvDocRef_Id" type="varchar(5)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-7">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_CONTRACTDOCREF"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_CONTRACTDOCREF">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_CONTRACTDOCREF"/>
+            </column>
+            <column name="USUCMP_Id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_CONTRACTDOCREF"/>
+            </column>
+            <column name="Valor" type="clob"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-8">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_GUIA_REMISION"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_GUIA_REMISION">
+            <column name="CodigoPuerto" type="varchar(10)"/>
+            <column name="NumeroContenedor" type="varchar(11)"/>
+            <column name="TipoDocConductor" type="varchar(50)"/>
+            <column name="DocumentoConductor" type="varchar(50)"/>
+            <column name="PlacaVehiculo" type="varchar(10)"/>
+            <column name="RUCTransporista" type="varchar(11)"/>
+            <column name="TipoDOCTransportista" type="varchar(2)"/>
+            <column name="NombreRazonTransportista" type="varchar(200)"/>
+            <column name="FechaInicioTraslado" type="datetime"/>
+            <column name="ModalidadTraslado" type="varchar(50)"/>
+            <column name="NumeroBultos" type="decimal(18, 2)"/>
+            <column name="UnidadMedida" type="varchar(50)"/>
+            <column name="Peso" type="decimal(18, 2)"/>
+            <column name="IndicadorTransbordoProgramado" type="varchar(50)"/>
+            <column name="CodigoMotivo" type="varchar(2)"/>
+            <column name="DescripcionMotivo" type="varchar(500)"/>
+            <column name="LicenciaConducir" type="varchar(50)"/>
+            <column name="DireccionPartida" type="varchar(100)"/>
+            <column name="UbigeoPartida" type="varchar(8)"/>
+
+            <!-- GUIAS SUNAT REST -->
+            <column name="TipoDocRelacionadoTrans" type="varchar(50)"/>
+            <column name="TipoDocRelacionadoTransDesc" type="varchar(50)"/>
+            <column name="DocumentoRelacionadoTrans" type="varchar(20)"/>
+
+            <column name="IndicadorTransbordo" type="varchar(20)"/>
+            <column name="IndicadorTraslado" type="varchar(20)"/>
+            <column name="IndicadorRetorno" type="varchar(20)"/>
+            <column name="IndicadorRetornoVehiculo" type="varchar(20)"/>
+            <column name="IndicadorTrasladoTotal" type="varchar(20)"/>
+            <column name="IndicadorRegistro" type="varchar(1)"/>
+
+            <column name="NroRegistroMTC" type="varchar(30)"/>
+            <column name="NombreApellidosConductor" type="varchar(250)"/>
+
+            <column name="UbigeoLlegada" type="varchar(6)"/>
+            <column name="DireccionLlegada" type="varchar(255)"/>
+
+            <column name="TarjetaCirculacion" type="varchar(15)"/>
+            <column name="numeroPrecinto" type="varchar(20)"/>
+
+            <column name="numeroContenedor2" type="varchar(11)"/>
+            <column name="numeroPrecinto2" type="varchar(20)"/>
+
+            <column name="DescripcionPuerto" type="varchar(200)"/>
+            <column name="CodigoAereopuerto" type="varchar(3)"/>
+            <column name="DescripcionAereopuerto" type="varchar(200)"/>
+            <column name="TicketRest" type="varchar(40)"/>
+
+            <column name="GRT_TipoDocRemitente" type="varchar(50)"/>
+            <column name="GRT_DocumentoRemitente" type="varchar(50)"/>
+            <column name="GRT_NombreRazonRemitente" type="varchar(200)"/>
+            <column name="GRT_IndicadorPagadorFlete" type="varchar(5)"/>
+
+            <column name="GRT_TipoDocDestinatario" type="varchar(50)"/>
+            <column name="GRT_DocumentoDestinatario" type="varchar(50)"/>
+            <column name="GRT_NombreRazonDestinatario" type="varchar(200)"/>
+
+            <column name="GRT_NumeroTUCEPrincipal" type="varchar(50)"/>
+            <column name="GRT_EntidadEmisoraPrincipal" type="varchar(50)"/>
+            <column name="GRT_PlacaVehiculoSecundario" type="varchar(50)"/>
+            <column name="GRT_NumeroTUCESecuendario" type="varchar(50)"/>
+            <column name="GRT_EntidadEmisoraSecundario" type="varchar(50)"/>
+
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_GUIA_REMISION"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-9">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="REGLAS_IDIOMAS_DOC"/>
+            </not>
+        </preConditions>
+        <createTable tableName="REGLAS_IDIOMAS_DOC">
+            <column autoIncrement="true" name="FEKey" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_REGLAS_IDIOMAS_DOC"/>
+            </column>
+            <column name="FETipoDOC" type="varchar(2)"/>
+            <column name="FECampoDOC" type="varchar(100)"/>
+            <column name="FEOperador" type="varchar(2)"/>
+            <column name="FEValorComparativo" type="varchar(100)"/>
+            <column name="FEDOCFinal" type="varchar(2000)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-10">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="LOG_TRANS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="LOG_TRANS">
+            <column autoIncrement="true" name="Keylog" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_LOG_TRANS"/>
+            </column>
+            <column name="Conector" type="varchar(255)"/>
+            <column name="Doc_Id" type="varchar(255)"/>
+            <column name="Fecha" type="datetime"/>
+            <column name="Hora" type="int"/>
+            <column name="Proceso" type="varchar(255)"/>
+            <column name="Tarea" type="varchar(255)"/>
+            <column name="TramaEnvio" type="clob"/>
+            <column name="TramaRespuesta" type="clob"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-11">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_USUCAMPOS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_USUCAMPOS">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_USUCAMPOS"/>
+            </column>
+            <column name="USUCMP_Id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_USUCAMPOS"/>
+            </column>
+            <column name="Valor" type="clob"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-12">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="BDS_MAESTRAS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="BDS_MAESTRAS">
+            <column name="BD_Id" type="varchar(100)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_BDS_MAESTRAS"/>
+            </column>
+            <column name="BD_Servidor" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Tipo_ERP" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Ruta_Archivos" type="clob">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BD_Nombre" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BD_Usuario" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="BD_Clave" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ERP_Usuario" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ERP_Clave" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Ruc_Sociedad" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Ruta_CD" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Password_CD" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Usuario_Sec" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Password_Sec" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Usuario_Guias" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Password_Guias" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Logo_Sociedad" type="varchar(200)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Servidor_Licencia" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Tipo_Servidor" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="Tipo_Integracion_Sunat" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="Web_Service_Publicacion" type="varchar(500)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Usuario_Web_Service" type="varchar(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Password_Web_Service" type="varchar(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Posicion" type="int">
+                <constraints nullable="false"/>
+            </column>
+
+            <column name="TipoIntegracionGuias" type="varchar(50)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="Scope" type="varchar(255)"/>
+            <column name="ClientId" type="varchar(255)"/>
+            <column name="ClientSecret" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-13">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="RESUMENDIARIO_CONFIG"/>
+            </not>
+        </preConditions>
+        <createTable tableName="RESUMENDIARIO_CONFIG">
+            <column name="fecha" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_RESUMENDIARIO_CONFIG"/>
+            </column>
+            <column name="hora" type="varchar(20)"/>
+            <column name="id" type="varchar(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-14">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="USUARIOCAMPOS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="USUARIOCAMPOS">
+            <column name="Id" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_USUARIOCAMPOS"/>
+            </column>
+            <column name="Nombre" type="varchar(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-15">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_PROPIEDADES"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_PROPIEDADES">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_PROPIEDADES"/>
+            </column>
+            <column name="Id" type="varchar(4)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_PROPIEDADES"/>
+            </column>
+            <column name="Valor" type="clob"/>
+            <column name="Description" type="varchar(200)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-16">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_BAJA"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_BAJA">
+            <column name="fecha" type="bigint">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_BAJA"/>
+            </column>
+            <column name="ID" type="bigint">
+                <constraints nullable="false"/>
+            </column>
+            <column name="serie" type="varchar(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-17">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_COMPROBANTE_PAGO"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_COMPROBANTE_PAGO">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_COMPROBANTE_PAGO"/>
+            </column>
+            <column name="NroOrden" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_COMPROBANTE_PAGO"/>
+            </column>
+            <column name="DOC_Tipo" type="varchar(2)"/>
+            <column name="DOC_Numero" type="varchar(13)"/>
+            <column name="DOC_FechaEmision" type="date"/>
+            <column name="DOC_Importe" type="decimal(19, 6)"/>
+            <column name="DOC_Moneda" type="varchar(3)"/>
+            <column name="PagoFecha" type="date"/>
+            <column name="PagoNumero" type="varchar(9)"/>
+            <column name="PagoImporteSR" type="decimal(19, 6)"/>
+            <column name="PagoMoneda" type="varchar(3)"/>
+            <column name="CP_Importe" type="decimal(19, 6)"/>
+            <column name="CP_Moneda" type="varchar(3)"/>
+            <column name="CP_Fecha" type="date"/>
+            <column name="CP_ImporteTotal" type="decimal(19, 6)"/>
+            <column name="CP_MonedaMontoNeto" type="varchar(3)"/>
+            <column name="TC_MonedaRef" type="varchar(3)"/>
+            <column name="TC_MonedaObj" type="varchar(3)"/>
+            <column name="TC_Factor" type="decimal(19, 6)"/>
+            <column name="TC_Fecha" type="date"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-18">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_RESUMEN_LINEA_ANEXO"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_RESUMEN_LINEA_ANEXO">
+            <column name="Id_Transaccion" type="varchar(25)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_RESUMEN_LINEA_ANEXO"/>
+            </column>
+            <column name="Id_Linea" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_RESUMEN_LINEA_ANEXO"/>
+            </column>
+            <column name="DocEntry" type="varchar(50)"/>
+            <column name="TipoTransaccion" type="varchar(5)"/>
+            <column name="SN" type="varchar(50)"/>
+            <column name="ObjcType" type="varchar(4)"/>
+            <column name="TipoDocumento" type="varchar(4)"/>
+            <column name="Serie" type="varchar(10)"/>
+            <column name="Correlativo" type="varchar(10)"/>
+            <column name="TipoEstado" type="varchar(10)"/>
+            <column name="Posicion" type="int">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-19">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="GUIA_REMISION_LINEA"/>
+            </not>
+        </preConditions>
+        <createTable tableName="GUIA_REMISION_LINEA">
+            <column name="ID_Linea" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_GUIA_REMISION_LINEA"/>
+            </column>
+            <column name="ID" type="varchar(100)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_GUIA_REMISION_LINEA"/>
+            </column>
+            <column name="BT_Cantidad" type="decimal(19, 6)"/>
+            <column name="BT_Codigo" type="varchar(255)"/>
+            <column name="BT_Descripcion" type="varchar(255)"/>
+            <column name="BT_NumOrden" type="int"/>
+            <column name="BT_UnidMedida" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-20">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_RESUMEN"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_RESUMEN">
+            <column name="Id_Transaccion" type="varchar(25)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_RESUMEN"/>
+            </column>
+            <column name="Numero_Ruc" type="varchar(11)"/>
+            <column name="DocIdentidad_Tipo" type="char(10)"/>
+            <column name="RazonSocial" type="varchar(100)"/>
+            <column name="NombreComercial" type="varchar(150)"/>
+            <column name="PersonContacto" type="varchar(100)"/>
+            <column name="EMail" type="varchar(50)"/>
+            <column name="DIR_Pais" type="varchar(50)"/>
+            <column name="DIR_Departamento" type="varchar(50)"/>
+            <column name="DIR_Provincia" type="varchar(50)"/>
+            <column name="DIR_Distrito" type="varchar(50)"/>
+            <column name="DIR_Direccion" type="clob"/>
+            <column name="DIR_NomCalle" type="varchar(50)"/>
+            <column name="DIR_NroCasa" type="varchar(50)"/>
+            <column name="DIR_Ubigeo" type="varchar(50)"/>
+            <column name="Fecha_Emision" type="date"/>
+            <column name="Fecha_Generacion" type="date"/>
+            <column name="Estado" type="varchar(20)"/>
+            <column name="Numero_Ticket" type="varchar(50)"/>
+            <column name="key_sociedad" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-21">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="GUIA_REMISION"/>
+            </not>
+        </preConditions>
+        <createTable tableName="GUIA_REMISION">
+            <column name="ID" type="varchar(100)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_GUIA_REMISION"/>
+            </column>
+            <column name="CTP_NumDocId" type="varchar(255)"/>
+            <column name="CTP_TipoDocId" type="varchar(255)"/>
+            <column name="DD_Denominacion" type="varchar(255)"/>
+            <column name="DD_NumDocId" type="varchar(255)"/>
+            <column name="DD_TipoDocId" type="varchar(255)"/>
+            <column name="DE_DesMotv" type="varchar(255)"/>
+            <column name="DE_FecIniTras" type="varchar(255)"/>
+            <column name="DE_IndTransb" type="smallint"/>
+            <column name="DE_ModalidadTras" type="varchar(255)"/>
+            <column name="DE_MotivTras" type="varchar(255)"/>
+            <column name="DE_NumBultos" type="decimal(19, 6)"/>
+            <column name="DE_PesoBTotal" type="decimal(19, 6)"/>
+            <column name="DE_UnidMedida" type="varchar(255)"/>
+            <column name="DOCR_CodTipoDoc" type="varchar(255)"/>
+            <column name="DOCR_NumDoc" type="varchar(255)"/>
+            <column name="DPL_Direccion" type="varchar(255)"/>
+            <column name="DPL_Ubigeo" type="varchar(255)"/>
+            <column name="DPP_Direccion" type="varchar(255)"/>
+            <column name="DPP_Ubigeo" type="varchar(255)"/>
+            <column name="DR_Denominacion" type="varchar(255)"/>
+            <column name="DR_NumDocId" type="varchar(255)"/>
+            <column name="DR_TipoDocId" type="varchar(255)"/>
+            <column name="DT_Denominacion" type="varchar(255)"/>
+            <column name="DT_NumDocId" type="varchar(255)"/>
+            <column name="DT_TipoDocId" type="varchar(255)"/>
+            <column name="GRB_CodTipoId" type="varchar(255)"/>
+            <column name="GRB_Correlativo" type="varchar(255)"/>
+            <column name="GRB_Numeracion" type="varchar(255)"/>
+            <column name="GRB_Serie" type="varchar(255)"/>
+            <column name="GRB_TipoDoc" type="varchar(255)"/>
+            <column name="GR_Correlativo" type="varchar(255)"/>
+            <column name="GR_FecEmision" type="varchar(255)"/>
+            <column name="GR_Numeracion" type="varchar(255)"/>
+            <column name="GR_Observacion" type="varchar(255)"/>
+            <column name="GR_Serie" type="varchar(255)"/>
+            <column name="GR_TipoDoc" type="varchar(255)"/>
+            <column name="MI_NumContenedor" type="varchar(255)"/>
+            <column name="PED_CodPuerto" type="varchar(255)"/>
+            <column name="TTP_Denominacion" type="varchar(255)"/>
+            <column name="TTP_NumRuc" type="varchar(255)"/>
+            <column name="TTP_TipoDocId" type="varchar(255)"/>
+            <column name="VTP_NumPlaca" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-22">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="PUBLICARDOC_WS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="PUBLICARDOC_WS">
+            <column name="FEId" type="varchar(30)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_PUBLICARDOC_WS"/>
+            </column>
+            <column name="RSRuc" type="varchar(100)"/>
+            <column name="RSDescripcion" type="varchar(500)"/>
+            <column name="DOCId" type="varchar(30)"/>
+            <column name="FETipoTrans" type="varchar(1)"/>
+            <column name="DOCFechaEmision" type="date"/>
+            <column name="DOCMontoTotal" type="decimal(19, 6)"/>
+            <column name="DOCCodigo" type="varchar(2)"/>
+            <column name="SNDocIdentidadNro" type="varchar(15)"/>
+            <column name="SNRazonSocial" type="varchar(200)"/>
+            <column name="SNEMail" type="varchar(100)"/>
+            <column name="SNEMailSecundario" type="varchar(500)"/>
+            <column name="rutaPDF" type="clob"/>
+            <column name="rutaXML" type="clob"/>
+            <column name="rutaZIP" type="clob"/>
+            <column name="EstadoSUNAT" type="char(1)"/>
+            <column name="DOCMONCodigo" type="varchar(3)"/>
+            <column name="DOCMONNombre" type="varchar(100)"/>
+            <column name="EMailEmisor" type="varchar(100)"/>
+            <column name="EstadoPublicacion" type="char(1)"/>
+            <column name="fechaPublicacionPortal" type="datetime"/>
+            <column name="key_sociedad" type="varchar(100)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-23">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_RESUMEN_LINEA"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_RESUMEN_LINEA">
+            <column name="Id_Transaccion" type="varchar(25)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_RESUMEN_LINEA"/>
+            </column>
+            <column name="Id_Linea" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_RESUMEN_LINEA"/>
+            </column>
+            <column name="Tipo_Documento" type="varchar(6)"/>
+            <column name="Numero_Serie" type="varchar(12)"/>
+            <column name="Numero_Correlativo_Inicio" type="varchar(24)"/>
+            <column name="Numero_Correlativo_Fin" type="varchar(24)"/>
+            <column name="Total_OP_Gravadas" type="decimal(19, 6)"/>
+            <column name="Total_OP_Exoneradas" type="decimal(19, 6)"/>
+            <column name="Total_OP_Inafectas" type="decimal(19, 6)"/>
+            <column name="Importe_Otros_Cargos" type="decimal(19, 6)"/>
+            <column name="Total_ISC" type="decimal(19, 6)"/>
+            <column name="Tota_IGV" type="decimal(19, 6)"/>
+            <column name="Total_Otros_Tributos" type="decimal(19, 6)"/>
+            <column name="Importe_Total" type="decimal(19, 6)"/>
+            <column name="CodMoneda" type="varchar(150)"/>
+            <column name="Estado" type="varchar(3)"/>
+            <column name="Base_Imponible" type="decimal(14, 6)"/>
+            <column name="Monto_Total_Cobrar" type="decimal(14, 6)"/>
+            <column name="Monto_Percepcion" type="decimal(14, 6)"/>
+            <column name="Tasa_Percepcion" type="decimal(14, 6)"/>
+            <column name="Regimen_Percepcion" type="varchar(6)"/>
+            <column name="TipoDocIdentidad_Modificado" type="varchar(6)"/>
+            <column name="DocId_Modificado" type="varchar(150)"/>
+            <column name="TipoDocIdentidad" type="varchar(6)"/>
+            <column name="DocIdentidad" type="varchar(150)"/>
+            <column name="Numero_Correlativo" type="varchar(24)"/>
+            <column name="Total_OP_Gratuitas" type="decimal(19, 6)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-24">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_LINEAS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_LINEAS">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_LINEAS"/>
+            </column>
+            <column name="NroOrden" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_LINEAS"/>
+            </column>
+            <column name="DSCTO_Porcentaje" type="decimal(19, 6)"/>
+            <column name="DSCTO_Monto" type="decimal(19, 6)"/>
+            <column name="Descripcion" type="varchar(500)"/>
+            <column name="PrecioDscto" type="decimal(19, 6)"/>
+            <column name="PrecioIGV" type="decimal(19, 6)"/>
+            <column name="TotalLineaSinIGV" type="decimal(19, 6)"/>
+            <column name="TotalLineaConIGV" type="decimal(19, 6)"/>
+            <column name="PrecioRef_Monto" type="decimal(19, 6)"/>
+            <column name="PrecioRef_Codigo" type="varchar(2)"/>
+            <column name="Cantidad" type="decimal(19, 6)"/>
+            <column name="Unidad" type="varchar(100)"/>
+            <column name="UnidadSunat" type="varchar(100)"/>
+            <column name="CodArticulo" type="varchar(50)"/>
+            <column name="CodSunat" type="varchar(20)"/>
+            <column name="TotalBruto" type="decimal(19, 6)"/>
+            <column name="LineaImpuesto" type="decimal(19, 6)"/>
+            <column name="CodProdGS1" type="varchar(20)"/>
+            <column name="CodUbigeoOrigen" type="varchar(20)"/>
+            <column name="DirecOrigen" type="varchar(254)"/>
+            <column name="CodUbigeoDestino" type="varchar(20)"/>
+            <column name="DirecDestino" type="varchar(254)"/>
+            <column name="DetalleViaje" type="varchar(254)"/>
+            <column name="ValorTransporte" type="decimal(19, 6)"/>
+            <column name="ValorCargaEfectiva" type="decimal(19, 6)"/>
+            <column name="ValorCargaUtil" type="decimal(19, 6)"/>
+            <column name="ConfVehicular" type="varchar(15)"/>
+            <column name="CUtilVehiculo" type="decimal(19, 6)"/>
+            <column name="CEfectivaVehiculo" type="decimal(19, 6)"/>
+            <column name="ValorRefTM" type="decimal(19, 6)"/>
+            <column name="ValorPreRef" type="decimal(19, 6)"/>
+            <column name="FactorRetorno" type="varchar(2)"/>
+
+            <column name="NombreEmbarcacion" type="varchar(255)"/>
+            <column name="TipoEspecieVendida" type="varchar(255)"/>
+            <column name="LugarDescarga" type="varchar(255)"/>
+            <column name="FechaDescarga" type="date"/>
+            <column name="CantidadEspecieVendida" type="decimal(19, 6)"/>
+
+            <!-- GUIAS REST -->
+            <column name="SubPartida" type="varchar(100)"/>
+            <column name="IndicadorBien" type="varchar(4)"/>
+            <column name="Numeracion" type="varchar(50)"/>
+            <column name="NumeroSerie" type="varchar(50)"/>
+
+
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-25">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_IMPUESTOS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_IMPUESTOS">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_IMPUESTOS"/>
+            </column>
+            <column name="LineId" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_IMPUESTOS"/>
+            </column>
+            <column name="Moneda" type="varchar(10)"/>
+            <column name="Monto" type="decimal(19, 6)"/>
+            <column name="Porcentaje" type="decimal(19, 6)"/>
+            <column name="TipoTributo" type="varchar(30)"/>
+            <column name="TipoAfectacion" type="varchar(30)"/>
+            <column name="ValorVenta" type="decimal(19, 6)"/>
+            <column name="Abreviatura" type="varchar(6)"/>
+            <column name="Codigo" type="varchar(1)"/>
+            <column name="Nombre" type="varchar(50)"/>
+            <column name="TierRange" type="varchar(30)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-26">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_COMPROBANTEPAGO_USUARIO"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_COMPROBANTEPAGO_USUARIO">
+            <column name="Id" type="int">
+                <constraints nullable="false" primaryKey="true"
+                             primaryKeyName="PK_TRANSACCION_COMPROBANTEPAGO_USUARIO"/>
+            </column>
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true"
+                             primaryKeyName="PK_TRANSACCION_COMPROBANTEPAGO_USUARIO"/>
+            </column>
+            <column name="NroOrden" type="int">
+                <constraints nullable="false" primaryKey="true"
+                             primaryKeyName="PK_TRANSACCION_COMPROBANTEPAGO_USUARIO"/>
+            </column>
+            <column name="Valor" type="clob"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-27">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_ERROR"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_ERROR">
+            <column name="FE_Id" type="varchar(25)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_ERROR"/>
+            </column>
+            <column name="Docentry" type="int"/>
+            <column name="Docnum" type="int"/>
+            <column name="FE_ObjectType" type="varchar(15)"/>
+            <column name="FE_FormSAP" type="varchar(50)"/>
+            <column name="FE_TipoTrans" type="varchar(1)"/>
+            <column name="Err_Codigo" type="int"/>
+            <column name="Err_Mensaje" type="varchar(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-28">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION">
+            <column name="DocIdentidad_Nro" type="varchar(100)"/>
+            <column name="DocIdentidad_Tipo" type="varchar(6)"/>
+            <column name="RazonSocial" type="varchar(400)"/>
+            <column name="NombreComercial" type="varchar(400)"/>
+            <column name="PersonContacto" type="varchar(300)"/>
+            <column name="EMail" type="varchar(300)"/>
+            <column name="Telefono" type="varchar(40)"/>
+            <column name="Telefono_1" type="varchar(40)"/>
+            <column name="Web" type="varchar(100)"/>
+            <column name="DIR_Pais" type="varchar(6)"/>
+            <column name="DIR_Departamento" type="varchar(200)"/>
+            <column name="DIR_Provincia" type="varchar(200)"/>
+            <column name="DIR_Distrito" type="varchar(200)"/>
+            <column name="DIR_Direccion" type="varchar(1000)"/>
+            <column name="DIR_NomCalle" type="varchar(200)"/>
+            <column name="DIR_NroCasa" type="varchar(40)"/>
+            <column name="DIR_Ubigeo" type="varchar(100)"/>
+            <column name="DIR_Urbanizacion" type="varchar(60)"/>
+            <column name="SN_DocIdentidad_Nro" type="varchar(45)"/>
+            <column name="SN_DocIdentidad_Tipo" type="varchar(6)"/>
+            <column name="SN_RazonSocial" type="varchar(400)"/>
+            <column name="SN_NombreComercial" type="varchar(400)"/>
+            <column name="SN_EMail" type="varchar(200)"/>
+            <column name="SN_EMail_Secundario" type="varchar(1000)"/>
+            <column name="SN_SegundoNombre" type="varchar(100)"/>
+            <column name="SN_DIR_Pais" type="varchar(6)"/>
+            <column name="SN_DIR_Pais_Descripcion" type="varchar(100)"/>
+            <column name="SN_DIR_Departamento" type="varchar(200)"/>
+            <column name="SN_DIR_Provincia" type="varchar(200)"/>
+            <column name="SN_DIR_Distrito" type="varchar(200)"/>
+            <column name="SN_DIR_Direccion" type="varchar(1000)"/>
+            <column name="SN_DIR_NomCalle" type="varchar(200)"/>
+            <column name="SN_DIR_NroCasa" type="varchar(40)"/>
+            <column name="SN_DIR_Ubigeo" type="varchar(100)"/>
+            <column name="SN_DIR_Urbanizacion" type="varchar(1000)"/>
+            <column name="DOC_Serie" type="varchar(8)"/>
+            <column name="DOC_Numero" type="varchar(30)"/>
+            <column name="DOC_Id" type="varchar(40)"/>
+            <column name="DOC_FechaEmision" type="date"/>
+            <column name="DOC_FechaVencimiento" type="date"/>
+            <column name="DOC_Dscrpcion" type="varchar(100)"/>
+            <column name="DOC_Codigo" type="varchar(2)"/>
+            <column name="DOC_MON_Nombre" type="varchar(20)"/>
+            <column name="DOC_MON_Codigo" type="varchar(3)"/>
+            <column name="DOC_Descuento" type="decimal(19, 6)"/>
+            <column name="DOC_PorDescuento" type="decimal(19, 6)"/>
+            <column name="DOC_MontoTotal" type="decimal(19, 6)"/>
+            <column name="DOC_DescuentoTotal" type="decimal(19, 6)"/>
+            <column name="DOC_Importe" type="decimal(19, 6)"/>
+            <column name="DOC_ImporteTotal" type="decimal(19, 6)"/>
+            <column name="DOC_PorcImpuesto" type="varchar(100)"/>
+            <column name="ANTICIPO_Id" type="varchar(40)"/>
+            <column name="ANTICIPO_Tipo" type="varchar(6)"/>
+            <column name="ANTICIPO_Monto" type="decimal(19, 6)"/>
+            <column name="ANTCIPO_Tipo_Doc_ID" type="varchar(200)"/>
+            <column name="ANTICIPO_Nro_Doc_ID" type="varchar(200)"/>
+            <column name="SUNAT_Transact" type="varchar(6)"/>
+            <column name="FE_DocEntry" type="int"/>
+            <column name="FE_ObjectType" type="varchar(60)"/>
+            <column name="FE_Estado" type="varchar(3)"/>
+            <column name="FE_TipoTrans" type="varchar(3)"/>
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION"/>
+            </column>
+            <column name="FE_DocNum" type="int"/>
+            <column name="FE_FormSAP" type="varchar(200)"/>
+            <column name="REFDOC_Tipo" type="varchar(6)"/>
+            <column name="REFDOC_Id" type="varchar(200)"/>
+            <column name="REFDOC_MotivCode" type="varchar(60)"/>
+            <column name="REFDOC_MotivDesc" type="varchar(200)"/>
+            <column name="FE_Comentario" type="varchar(512)"/>
+            <column name="FE_ErrCod" type="varchar(16)"/>
+            <column name="FE_ErrMsj" type="varchar(512)"/>
+            <column name="FE_Errores" type="int"/>
+            <column name="FE_MaxSalto" type="int"/>
+            <column name="FE_Saltos" type="int"/>
+            <column name="DOC_CondPago" type="varchar(200)"/>
+            <column name="RET_Regimen" type="varchar(6)"/>
+            <column name="RET_Tasa" type="varchar(16)"/>
+            <column name="Observaciones" type="clob"/>
+            <column name="ImportePagado" type="decimal(19, 6)"/>
+            <column name="MonedaPagado" type="varchar(6)"/>
+            <column name="FechaDOCRef" type="varchar(50)"/>
+            <column name="FechaVenDOCRef" type="varchar(50)"/>
+            <column name="TipoOperacionSunat" type="varchar(200)"/>
+            <column name="DOC_OtrosCargos" type="decimal(19, 6)"/>
+            <column name="DOC_ImpuestoTotal" type="decimal(19, 6)"/>
+            <column name="CuentaDetraccion" type="varchar(80)"/>
+            <column name="CodigoDetraccion" type="varchar(20)"/>
+            <column name="PorcDetraccion" type="decimal(19, 6)"/>
+            <column name="MontoDetraccion" type="decimal(19, 6)"/>
+            <column name="CodigoPago" type="varchar(6)"/>
+            <column name="DOC_SinPercepcion" type="decimal(19, 6)"/>
+            <column name="DOC_MonPercepcion" type="decimal(19, 6)"/>
+            <column name="DOC_PorPercepcion" type="decimal(19, 6)"/>
+            <column name="key_sociedad" type="varchar(255)"/>
+            <column name="version" type="int"/>
+            <column name="TicketBaja" type="varchar(255)"/>
+
+            <column name="MontoRetencion" type="decimal(19, 6)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="joseLuis" id="1579018865343-88">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="TRANSACCION_CUOTAS"/>
+            </not>
+        </preConditions>
+        <createTable tableName="TRANSACCION_CUOTAS">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_CUOTAS"/>
+            </column>
+            <column name="NroOrden" type="int">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_TRANSACCION_CUOTAS"/>
+            </column>
+            <column name="Cuota" type="varchar(20)"/>
+            <column name="FechaCuota" type="date"/>
+            <column name="MontoCuota" type="decimal(19, 6)"/>
+            <column name="FechaEmision" type="date"/>
+            <column name="FormaPago" type="varchar(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-29" dbms="mysql, postgresql, mssql">
+        <addUniqueConstraint columnNames="Nombre" constraintName="USUARIO_CAMPOS_NOMBRE" tableName="USUARIOCAMPOS"/>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-30-indexes">
+        <createIndex indexName="INDEX_RESUMEN_LINEA_ID" tableName="TRANSACCION_RESUMEN_LINEA">
+            <column name="Id_Transaccion"/>
+        </createIndex>
+        <createIndex indexName="INDEX_TRANS_COMP_PAGO_ID" tableName="TRANSACCION_COMPROBANTEPAGO_USUARIO">
+            <column name="FE_Id"/>
+            <column name="NroOrden"/>
+        </createIndex>
+        <createIndex indexName="INDEX_TRANS_LINEA_IMP" tableName="TRANSACCION_LINEA_IMPUESTOS">
+            <column name="FE_Id"/>
+            <column name="NroOrden"/>
+        </createIndex>
+        <createIndex indexName="INDEX_LINEA_USUCAMPO_ID" tableName="TRANSACCION_LINEAS_USUCAMPOS">
+            <column name="USUCMP_Id"/>
+        </createIndex>
+        <createIndex indexName="INDEX_LINEA_BILLREF_ID" tableName="TRANSACCION_LINEAS_BILLREF">
+            <column name="FE_Id"/>
+            <column name="NroOrden"/>
+        </createIndex>
+        <createIndex indexName="INDEX_TRANS_CONTRACT_ID" tableName="TRANSACCION_CONTRACTDOCREF">
+            <column name="USUCMP_Id"/>
+        </createIndex>
+        <createIndex indexName="USUCAMPOS_USUCMP_Id" tableName="TRANSACCION_USUCAMPOS">
+            <column name="USUCMP_Id"/>
+        </createIndex>
+        <createIndex indexName="RESUMENLINEA_ANEXO_Id_TRANS" tableName="TRANSACCION_RESUMEN_LINEA_ANEXO">
+            <column name="Id_Transaccion"/>
+        </createIndex>
+        <createIndex indexName="GUIA_REMISION_LINEA_ID" tableName="GUIA_REMISION_LINEA">
+            <column name="ID"/>
+        </createIndex>
+    </changeSet>
+    <changeSet author="joseLuis" id="1579018865343-31-foreing-keys" dbms="mysql, postgresql, mssql">
+        <addForeignKeyConstraint baseColumnNames="Id_Transaccion" baseTableName="TRANSACCION_RESUMEN_LINEA"
+                                 constraintName="FK_RESUMEN_LINEA_RESUMEN" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="Id_Transaccion" referencedTableName="TRANSACCION_RESUMEN"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="Id" baseTableName="TRANSACCION_COMPROBANTEPAGO_USUARIO"
+                                 constraintName="FK_PAGOUSUARIO_USUARIO_CAMPOS" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="Id" referencedTableName="USUARIOCAMPOS" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id,NroOrden" baseTableName="TRANSACCION_COMPROBANTEPAGO_USUARIO"
+                                 constraintName="FK_COMPROBANTE_PAGO_COMPROBANTE" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id,NroOrden"
+                                 referencedTableName="TRANSACCION_COMPROBANTE_PAGO" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id" baseTableName="TRANSACCION_ANTICIPO"
+                                 constraintName="FK_ANTICIPO_TRANSACCION" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id" referencedTableName="TRANSACCION" validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id,NroOrden" baseTableName="TRANSACCION_LINEA_IMPUESTOS"
+                                 constraintName="FK_LINEA_IMPUESTO_TRANSACCION" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id,NroOrden" referencedTableName="TRANSACCION_LINEAS"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id" baseTableName="TRANSACCION_DOCREFERS"
+                                 constraintName="FK_DOCREFERS_TRANSACCION" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id" referencedTableName="TRANSACCION"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id" baseTableName="TRANSACCION_TOTALES"
+                                 constraintName="FK_TOTALES_TRANSACCION" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id" referencedTableName="TRANSACCION"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="USUCMP_Id" baseTableName="TRANSACCION_LINEAS_USUCAMPOS"
+                                 constraintName="FK_LINEA_USUCAMPOS_USUCAMPOS" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="Id" referencedTableName="USUARIOCAMPOS"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id,NroOrden" baseTableName="TRANSACCION_LINEAS_USUCAMPOS"
+                                 constraintName="FK_LINEA_USUCAMPOS_LINEA" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id,NroOrden" referencedTableName="TRANSACCION_LINEAS"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id,NroOrden" baseTableName="TRANSACCION_LINEAS_BILLREF"
+                                 constraintName="FK_LINEA_BILLREF_LINEA" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id,NroOrden" referencedTableName="TRANSACCION_LINEAS"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="USUCMP_Id" baseTableName="TRANSACCION_CONTRACTDOCREF"
+                                 constraintName="FK_CONTRACT_USUCAMPOS" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="Id" referencedTableName="USUARIOCAMPOS"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id" baseTableName="TRANSACCION_CONTRACTDOCREF"
+                                 constraintName="FK_CONTRACT_TRANSACCION" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id" referencedTableName="TRANSACCION"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id" baseTableName="TRANSACCION_GUIA_REMISION"
+                                 constraintName="FK_GUIAREMISION_TRANSACCION" deferrable="false"
+                                 initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE"
+                                 referencedColumnNames="FE_Id" referencedTableName="TRANSACCION"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="USUCMP_Id" baseTableName="TRANSACCION_USUCAMPOS"
+                                 constraintName="FK_TRASACCION_USUCAMPOS_USUCAMPOS" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="Id" referencedTableName="USUARIOCAMPOS"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id" baseTableName="TRANSACCION_USUCAMPOS"
+                                 constraintName="FK_TRANS_USUCAMPOS_TRANSACCION" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id" referencedTableName="TRANSACCION"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id" baseTableName="TRANSACCION_PROPIEDADES"
+                                 constraintName="FK_PROPIEDADES_TRANSACCION" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id" referencedTableName="TRANSACCION"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id" baseTableName="TRANSACCION_COMPROBANTE_PAGO"
+                                 constraintName="FK_COMPROBANTE_PAGO_TRANSACCION" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id" referencedTableName="TRANSACCION"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="Id_Transaccion" baseTableName="TRANSACCION_RESUMEN_LINEA_ANEXO"
+                                 constraintName="FK_RESUMEN_LINEA_ANEXO_RESUMEN" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="Id_Transaccion" referencedTableName="TRANSACCION_RESUMEN"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="ID" baseTableName="GUIA_REMISION_LINEA"
+                                 constraintName="FK_GUIA_LINEA_GUIA_REMISION" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="ID"
+                                 referencedTableName="GUIA_REMISION"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id" baseTableName="TRANSACCION_LINEAS"
+                                 constraintName="FK_LINEAS_TRANSACCION" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id" referencedTableName="TRANSACCION"
+                                 validate="true"/>
+
+        <addForeignKeyConstraint baseColumnNames="FE_Id" baseTableName="TRANSACCION_IMPUESTOS"
+                                 constraintName="FK_IMPUESTOS_TRANSACCION" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id" referencedTableName="TRANSACCION"
+                                 validate="true"/>
+        <addForeignKeyConstraint baseColumnNames="FE_Id" baseTableName="TRANSACCION_CUOTAS"
+                                 constraintName="FK_CUOTAS_TRANSACCION" deferrable="false"
+                                 initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION"
+                                 referencedColumnNames="FE_Id" referencedTableName="TRANSACCION"
+                                 validate="true"/>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-32" objectQuotingStrategy="LEGACY">
+        <sql dbms="mssql" splitStatements="true" stripComments="true">
+            IF EXISTS (SELECT * FROM sysobjects WHERE id = object_id(N'[dbo].[bpvs_FE_Correlativo_Baja]') AND
+            OBJECTPROPERTY(id, N'IsProcedure') = 1)
+            BEGIN
+            DROP PROCEDURE dbo.bpvs_FE_Correlativo_Baja
+            END
+        </sql>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-33" objectQuotingStrategy="LEGACY">
+        <createProcedure dbms="mysql" path="db/changelog/procedure/bpvs_FE_Correlativo_Baja_MYSQL.sql"/>
+        <createProcedure dbms="mssql" encoding="UTF-8" procedureName="bpvs_FE_Correlativo_Baja"
+                         relativeToChangelogFile="true" replaceIfExists="true">
+            <comment>Procedimiento de Bajas</comment>
+            CREATE PROCEDURE [dbo].[bpvs_FE_Correlativo_Baja]
+            as
+            SET NOCOUNT ON
+
+            DECLARE @DateTimeInt BIGINT = convert(bigint,replace(replace(replace(replace(convert(char(23), getdate(),
+            112),'-',''),':',''),'.',''),' ',''))
+            DECLARE @Max BIGINT
+            select @Max=MAX(fecha) from TRANSACCION_BAJA
+            DECLARE @id BIGINT = (select ISNULL(MAX(ID),0)+1 from TRANSACCION_BAJA where fecha=@Max)
+            DECLARE @serie varchar(50)
+            DECLARE @filas int =(select count(fecha) from TRANSACCION_BAJA)
+            if(@filas=0)
+            begin
+            select @serie = 'RA' + '-' + cast(@DateTimeInt as varchar) + '-' + RIGHT('00000' + Ltrim(Rtrim(1)),5)
+            INSERT INTO TRANSACCION_BAJA (fecha,ID,serie) VALUES(@DateTimeInt,1,@serie)
+            select * from TRANSACCION_BAJA WHERE fecha=@DateTimeInt
+            end
+            if(@Max!=@DateTimeInt)
+            begin
+            select @serie = 'RA' + '-' + cast(@DateTimeInt as varchar) + '-' + RIGHT('00000' + Ltrim(Rtrim(1)),5)
+            INSERT INTO TRANSACCION_BAJA (fecha,ID,serie) VALUES(@DateTimeInt,1,@serie)
+            select * from TRANSACCION_BAJA WHERE fecha=@DateTimeInt
+            end
+            else
+            begin
+            select @serie = 'RA' + '-' + cast(@DateTimeInt as varchar) + '-' + RIGHT('00000' + Ltrim(Rtrim(@id)),5)
+            UPDATE TRANSACCION_BAJA SET ID=@id, serie=@serie where fecha=@DateTimeInt
+            select @Max=MAX(fecha) from TRANSACCION_BAJA
+            select * from TRANSACCION_BAJA WHERE fecha=@Max
+            end
+        </createProcedure>
+    </changeSet>
+
+    <changeSet author="yosmel" id="00000000000000">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <sequenceExists sequenceName="sequence_generator"/>
+            </not>
+        </preConditions>
+        <createSequence sequenceName="sequence_generator" startValue="1050" incrementBy="50"/>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-34">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="DOCUMENTO_ELECTRONICO"/>
+            </not>
+        </preConditions>
+        <createTable tableName="DOCUMENTO_ELECTRONICO">
+            <column name="id" type="varchar(100)">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="nombre" type="varchar(150)"/>
+            <column name="codigo" type="varchar(20)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-35">
+        <addColumn tableName="BDS_MAESTRAS">
+            <column name="Cliente_Sunat" type="varchar(50)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet author="Jose" id="1579018865343-35">
+        <addColumn tableName="TRANSACCION">
+            <column name="importeDOCRef" type="decimal(19, 6)"/>
+        </addColumn>
+    </changeSet>
+
+    <changeSet author="yosme" id="1579018865343-36">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="NOTIFICACION_TRANSACCION"/>
+            </not>
+        </preConditions>
+        <createTable tableName="NOTIFICACION_TRANSACCION">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_NOTIFICACION_TRANSACCION"/>
+            </column>
+            <column name="key_sociedad" type="varchar(100)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_NOTIFICACION_TRANSACCION"/>
+            </column>
+            <column name="Mensaje" type="varchar(1500)"/>
+            <column name="Tipo_Mensaje" type="varchar(10)"/>
+            <column name="Tiempo" type="datetime"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1579018865343-37" author="yosme">
+        <addColumn tableName="TRANSACCION_LINEAS">
+            <column name="ItmBolsa" type="varchar(1)"/>
+        </addColumn>
+    </changeSet>
+    <changeSet id="1579018865343-38" author="yosme" dbms="mysql,postgresql,mssql">
+        <addUniqueConstraint tableName="BDS_MAESTRAS" columnNames="BD_Nombre" constraintName="Unique_BD_Nombre"/>
+    </changeSet>
+    <changeSet author="yosme" id="1579018865343-39">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="ENVIO_DOCUMENTO"/>
+            </not>
+        </preConditions>
+        <createTable tableName="ENVIO_DOCUMENTO">
+            <column name="FE_Id" type="varchar(20)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ENVIO_DOCUMENTO"/>
+            </column>
+            <column name="Cantidad_Envio" type="int"/>
+            <column name="key_sociedad" type="varchar(100)">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="PK_ENVIO_DOCUMENTO"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="joseluis" id="1579018865343-40">
+
+        <createTable tableName="COD_ERROR_SUNAT">
+            <column name="idCodError" type="varchar(100)"/>
+            <column name="codDescription" type="varchar(256)"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet author="Claudia" id="1579018865343-41">
+        <sqlFile
+                encoding="utf8"
+                path="classpath:/db/changelog/error_cod_sunat.sql"
+                relativeToChangelogFile="false"
+                splitStatements="true"
+                stripComments="true"/>
+    </changeSet>
+
+
+</databaseChangeLog>

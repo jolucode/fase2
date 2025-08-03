@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="urn:ws_wservice"
+             xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns="http://schemas.xmlsoap.org/wsdl/"
+             targetNamespace="urn:ws_wservice">
+<types>
+<xsd:schema targetNamespace="urn:ws_wservice"
+>
+ <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+ <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+</xsd:schema>
+</types>
+<message name="publicarDocumentoRequest">
+  <part name="usuarioSesion" type="xsd:string" />
+  <part name="claveSesion" type="xsd:string" />
+  <part name="rucConsumidor" type="xsd:string" />
+  <part name="nombreConsumidor" type="xsd:string" />
+  <part name="emailConsumidor" type="xsd:string" />
+  <part name="numeroSerie" type="xsd:string" />
+  <part name="fechaEmision" type="xsd:string" />
+  <part name="tipoDoc" type="xsd:string" />
+  <part name="total" type="xsd:string" />
+  <part name="rutaPDF" type="xsd:string" />
+  <part name="rutaXML" type="xsd:string" />
+  <part name="rutaZIP" type="xsd:string" />
+  <part name="estadoSunat" type="xsd:string" />
+  <part name="moneda" type="xsd:string" />
+  <part name="emailEmisor" type="xsd:string" />
+  <part name="tipoTransaccion" type="xsd:string" />
+  <part name="correoSecundario" type="xsd:string" /></message>
+<message name="publicarDocumentoResponse">
+  <part name="return" type="xsd:string" /></message>
+<portType name="PublishServicePortType">
+  <operation name="publicarDocumento">
+    <documentation>publicar webservice</documentation>
+    <input message="tns:publicarDocumentoRequest"/>
+    <output message="tns:publicarDocumentoResponse"/>
+  </operation>
+</portType>
+<binding name="PublishServiceBinding" type="tns:PublishServicePortType">
+  <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+  <operation name="publicarDocumento">
+    <soap:operation soapAction="urn:ws_wservice#publicar" style="rpc"/>
+    <input><soap:body use="encoded" namespace="urn:ws_wservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></input>
+    <output><soap:body use="encoded" namespace="urn:ws_wservice" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"/></output>
+  </operation>
+</binding>
+<service name="PublishService">
+  <port name="PublishServicePort" binding="tns:PublishServiceBinding">
+    <soap:address location="http://digital-fact.com/WSSERVER/WSSERVER.php"/>
+  </port>
+</service>
+</definitions>

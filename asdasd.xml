@@ -1,0 +1,118 @@
+INSERT INTO `transaccion` (`DocIdentidad_Nro`, `DocIdentidad_Tipo`, `RazonSocial`, `NombreComercial`, `PersonContacto`, `EMail`, `Telefono`, `Telefono_1`, `Web`, `DIR_Pais`, `DIR_Departamento`, `DIR_Provincia`, `DIR_Distrito`, `DIR_Direccion`, `DIR_NomCalle`, `DIR_NroCasa`, `DIR_Ubigeo`, `DIR_Urbanizacion`, `SN_DocIdentidad_Nro`, `SN_DocIdentidad_Tipo`, `SN_RazonSocial`, `SN_NombreComercial`, `SN_EMail`, `SN_EMail_Secundario`, `SN_SegundoNombre`, `SN_DIR_Pais`, `SN_DIR_Pais_Descripcion`, `SN_DIR_Departamento`, `SN_DIR_Provincia`, `SN_DIR_Distrito`, `SN_DIR_Direccion`, `SN_DIR_NomCalle`, `SN_DIR_NroCasa`, `SN_DIR_Ubigeo`, `SN_DIR_Urbanizacion`, `DOC_Serie`, `DOC_Numero`, `DOC_Id`, `DOC_FechaEmision`, `DOC_FechaVencimiento`, `DOC_Dscrpcion`, `DOC_Codigo`, `DOC_MON_Nombre`, `DOC_MON_Codigo`, `DOC_Descuento`, `DOC_PorDescuento`, `DOC_MontoTotal`, `DOC_DescuentoTotal`, `DOC_Importe`, `DOC_ImporteTotal`, `DOC_PorcImpuesto`, `ANTICIPO_Id`, `ANTICIPO_Tipo`, `ANTICIPO_Monto`, `ANTCIPO_Tipo_Doc_ID`, `ANTICIPO_Nro_Doc_ID`, `SUNAT_Transact`, `FE_DocEntry`, `FE_ObjectType`, `FE_Estado`, `FE_TipoTrans`, `FE_Id`, `FE_DocNum`, `FE_FormSAP`, `REFDOC_Tipo`, `REFDOC_Id`, `REFDOC_MotivCode`, `REFDOC_MotivDesc`, `FE_Comentario`, `FE_ErrCod`, `FE_ErrMsj`, `FE_Errores`, `FE_MaxSalto`, `FE_Saltos`, `DOC_CondPago`, `RET_Regimen`, `RET_Tasa`, `Observaciones`, `ImportePagado`, `MonedaPagado`, `FechaDOCRef`, `FechaVenDOCRef`, `TipoOperacionSunat`, `DOC_OtrosCargos`, `DOC_ImpuestoTotal`, `CuentaDetraccion`, `CodigoDetraccion`, `PorcDetraccion`, `MontoDetraccion`, `CodigoPago`, `DOC_SinPercepcion`, `DOC_MonPercepcion`, `DOC_PorPercepcion`, `key_sociedad`, `version`, `TicketBaja`, `MontoRetencion`, `importeDOCRef`) VALUES
+('20510910517', '6', 'PRUEBAS CDR OBSERVADOS', 'FE PRUEBA', '', 'HFIGUEROA@VSPERU.COM', '+511 615-4999', '', '', 'PE', 'LIMA', 'LIMA', 'MIRAFLORES', 'JR. BOLOGNESI NRO. 125 OFICINA 1103 MIRAFLORES LIMA', 'JR. BOLOGNESI NRO. 125 OFICINA 1103 MIRAFLORES LIMA', '', '150122', '', '10103164503', '6', 'CORRALES MANRIQUE   GLADYS ESTHER', 'CORRALES MANRIQUE   GLADYS ESTHER', 'acarranza@vsperu.com', '', '', '', NULL, '', '', '', 'AV NESTOR GAMBETA KM 11.5', '', '', '070101', '', 'TDS1', '00000017', 'TDS1-00000017', '2023-01-17', '2023-01-17', '', '09', '', '', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', '18%', '', '', '0.000000', '6', '20510910517', '', 5503, '20', 'N', 'E', '009TDS100000017E', 3887, 'Transferencia Stock', '', '', '', '', '', 'N', '', 0, 0, 0, '', '', '', '', '0.000000', '', '', '', '', '0.000000', '0.000000', '', '', '0.000000', '0.000000', '', '0.000000', NULL, NULL, 'SBO_FE_QUICKSA', NULL, '', '0.000000', '0.000000');
+
+--
+-- Volcado de datos para la tabla `transaccion_contractdocref`
+--
+
+INSERT INTO `transaccion_contractdocref` (`FE_Id`, `USUCMP_Id`, `Valor`) VALUES
+('009TDS100000017E', 38, '8888888888'),
+('009TDS100000017E', 11, '1111111111'),
+('009TDS100000017E', 14, 'TEXTO LIBRE'),
+('009TDS100000017E', 12, '2222222222'),
+('009TDS100000017E', 13, '3333333333');
+
+--
+-- Volcado de datos para la tabla `transaccion_docrefers`
+--
+
+INSERT INTO `transaccion_docrefers` (`FE_Id`, `LineId`, `Tipo`, `Id`) VALUES
+('009TDS100000017E', 0, '01', ''),
+('009TDS100000017E', 1, '', '');
+
+--
+-- Volcado de datos para la tabla `transaccion_guia_remision`
+--
+
+INSERT INTO `transaccion_guia_remision` (`CodigoPuerto`, `NumeroContenedor`, `TipoDocConductor`, `DocumentoConductor`, `PlacaVehiculo`, `RUCTransporista`, `TipoDOCTransportista`, `NombreRazonTransportista`, `FechaInicioTraslado`, `ModalidadTraslado`, `NumeroBultos`, `UnidadMedida`, `Peso`, `IndicadorTransbordoProgramado`, `CodigoMotivo`, `DescripcionMotivo`, `LicenciaConducir`, `DireccionPartida`, `UbigeoPartida`, `TipoDocRelacionadoTrans`, `TipoDocRelacionadoTransDesc`, `DocumentoRelacionadoTrans`, `IndicadorTransbordo`, `IndicadorTraslado`, `IndicadorRetorno`, `IndicadorRetornoVehiculo`, `IndicadorTrasladoTotal`, `IndicadorRegistro`, `NroRegistroMTC`, `NombreApellidosConductor`, `UbigeoLlegada`, `DireccionLlegada`, `TarjetaCirculacion`, `numeroPrecinto`, `numeroContenedor2`, `numeroPrecinto2`, `DescripcionPuerto`, `CodigoAereopuerto`, `DescripcionAereopuerto`, `TicketRest`, `FE_Id`) VALUES
+('', '55555', '', '', '', '20502445805', '6', 'WARI SERVICE SOCIEDAD ANONIMA CERRADA-WARI SERVICE', '2022-05-26 03:00:00', '01', '0.00', 'KGM', '50.00', '0', '08', 'Importacion', '', 'ALMACEN', '150115', '50', 'Declaración Aduanera de Mercancías', '118-2023-10-077413', '', '', '', '', 'Y', '', '', '', '070101', 'AV NESTOR GAMBETA KM 11.5', '', '22222', '', '', '', '', '', '0', '009TDS100000017E');
+
+--
+-- Volcado de datos para la tabla `transaccion_lineas`
+--
+
+INSERT INTO `transaccion_lineas` (`FE_Id`, `NroOrden`, `DSCTO_Porcentaje`, `DSCTO_Monto`, `Descripcion`, `PrecioDscto`, `PrecioIGV`, `TotalLineaSinIGV`, `TotalLineaConIGV`, `PrecioRef_Monto`, `PrecioRef_Codigo`, `Cantidad`, `Unidad`, `UnidadSunat`, `CodArticulo`, `CodSunat`, `TotalBruto`, `LineaImpuesto`, `CodProdGS1`, `CodUbigeoOrigen`, `DirecOrigen`, `CodUbigeoDestino`, `DirecDestino`, `DetalleViaje`, `ValorTransporte`, `ValorCargaEfectiva`, `ValorCargaUtil`, `ConfVehicular`, `CUtilVehiculo`, `CEfectivaVehiculo`, `ValorRefTM`, `ValorPreRef`, `FactorRetorno`, `NombreEmbarcacion`, `TipoEspecieVendida`, `LugarDescarga`, `FechaDescarga`, `CantidadEspecieVendida`, `SubPartida`, `IndicadorBien`, `Numeracion`, `NumeroSerie`, `ItmBolsa`) VALUES
+('009TDS100000017E', 1, '0.000000', '0.000000', 'RRFF', '0.000000', '0.000000', '0.000000', '0.000000', '0.000000', '', '1.000000', 'UND', 'NIU', 'A0000001', '', '0.000000', '0.000000', '', '', '', '', '', '', '0.000000', '0.000000', '0.000000', '', '0.000000', '0.000000', '0.000000', '0.000000', '', '', '', '', '1899-12-30', '0.000000', '', '', '', '', 'N');
+
+--
+-- Volcado de datos para la tabla `transaccion_lineas_billref`
+--
+
+INSERT INTO `transaccion_lineas_billref` (`FE_Id`, `NroOrden`, `LineId`, `AdtDocRef_Id`, `AdtDocRef_SchemaId`, `InvDocRef_DocTypeCode`, `InvDocRef_Id`) VALUES
+('009TDS100000017E', 1, 1, '', 'isc_type', '', ''),
+('009TDS100000017E', 1, 6, 'xxx', 'discount_type', '', ''),
+('009TDS100000017E', 1, 0, 'false', 'isc_check', '', ''),
+('009TDS100000017E', 1, 7, '', 'afec_type', '', ''),
+('009TDS100000017E', 1, 5, '0.000000', 'discount_value', '', ''),
+('009TDS100000017E', 1, 3, 'xxx', 'isc_subtype', '', ''),
+('009TDS100000017E', 1, 2, '', 'isc_value', '', ''),
+('009TDS100000017E', 1, 12, '0', 'discount_igv_value', '', ''),
+('009TDS100000017E', 1, 14, '0', 'hidden_uvalue', '', ''),
+('009TDS100000017E', 1, 8, '0.00', 'ref_value', '', ''),
+('009TDS100000017E', 1, 9, '0', 'igv_value', '', ''),
+('009TDS100000017E', 1, 4, '0', 'isc_price', '', ''),
+('009TDS100000017E', 1, 10, '0', 'discount_import_value', '', ''),
+('009TDS100000017E', 1, 16, '0', 'hidden_xprice', '', ''),
+('009TDS100000017E', 1, 15, '0', 'hidden_uprice', '', ''),
+('009TDS100000017E', 1, 13, '0', 'isc_import_value', '', ''),
+('009TDS100000017E', 1, 11, '0', 'discount_desc_value', '', '');
+
+--
+-- Volcado de datos para la tabla `transaccion_lineas_usucampos`
+--
+
+INSERT INTO `transaccion_lineas_usucampos` (`FE_Id`, `NroOrden`, `USUCMP_Id`, `Valor`) VALUES
+('009TDS100000017E', 1, 7, '1.0'),
+('009TDS100000017E', 1, 9, '0.0'),
+('009TDS100000017E', 1, 1, ''),
+('009TDS100000017E', 1, 6, '0.0'),
+('009TDS100000017E', 1, 8, '0.0'),
+('009TDS100000017E', 1, 3, 'UND'),
+('009TDS100000017E', 1, 2, 'A0000001'),
+('009TDS100000017E', 1, 10, '0.0'),
+('009TDS100000017E', 1, 4, 'RRFF'),
+('009TDS100000017E', 1, 5, '0.0');
+
+--
+-- Volcado de datos para la tabla `usuariocampos`
+--
+
+INSERT INTO `usuariocampos` (`Id`, `Nombre`) VALUES
+(1, 'TipoAfectacion'),
+(2, 'CodArticulo'),
+(3, 'Unidad'),
+(4, 'Descripcion'),
+(5, 'TotalLineaSinIGV'),
+(6, 'TotalLineaConIGV'),
+(7, 'Cantidad'),
+(8, 'PrecioSinIGV'),
+(9, 'DSCTO_Monto'),
+(10, 'PrecioIGV'),
+(11, 'incoterms'),
+(12, 'orden_compra'),
+(13, 'nro_hes'),
+(14, 'cerper_mensaje'),
+(15, 'NroOrden'),
+(16, 'DOC_Tipo'),
+(17, 'DOC_Numero'),
+(18, 'DOC_FechaEmision'),
+(19, 'DOC_Importe'),
+(20, 'DOC_Moneda'),
+(21, 'PagoFecha'),
+(22, 'PagoNumero'),
+(23, 'PagoImporteSR'),
+(24, 'PagoMoneda'),
+(25, 'CP_Importe'),
+(26, 'CP_Moneda'),
+(27, 'CP_Fecha'),
+(28, 'CP_ImporteTotal'),
+(29, 'CP_MonedaMontoNeto'),
+(30, 'TC_MonedaRef'),
+(31, 'TC_MonedaObj'),
+(32, 'TC_Factor'),
+(33, 'TC_Fecha'),
+(34, 'TipoMoneda'),
+(35, 'CP_PORPERCEP'),
+(36, 'TipoMonedaTotal'),
+(37, 'Importe_Pago_Soles'),
+(38, 'orden_venta');

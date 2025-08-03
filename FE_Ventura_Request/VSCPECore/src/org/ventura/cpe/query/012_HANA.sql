@@ -1,0 +1,1 @@
+call "bpvs_FE_Transaccion_Resumen" ('%s', %s)

@@ -1,0 +1,24 @@
+# IntelliJ
+out/
+logs/
+/FE_Ventura_Request/VSCPECore/nbproject/private/
+/FE_Ventura_Request/VSCPECore/dist/
+/FE_Ventura_Request/VSCPEMain/dist/
+/FE_Ventura_Response/VSCore/nbproject/private/
+/FE_Ventura_Response/VSCPEMain/nbproject/private/
+/FE_Ventura_Response/VSCore/build/
+/FE_Ventura_Response/VSCore/dist/
+/FE_Ventura_Response/VSCPEMain/build/
+/FE_Ventura_Response/VSCPEMain/dist/
+/FE_Ventura_Resumen/VSCore/nbproject/private/
+/FE_Ventura_Resumen/VSCPEMain/nbproject/private/
+/FE_Ventura_Resumen/VSCore/build/
+/FE_Ventura_Resumen/VSCore/dist/
+/FE_Ventura_Resumen/VSCPEMain/build/
+/FE_Ventura_Resumen/VSCPEMain/dist/
+/FE_Ventura_Resumen/Facturador_Sunat/nbproject/private/
+/FE_Ventura_Resumen/Facturador_Sunat/build/
+/FE_Ventura_Resumen/Facturador_Sunat/dist/
+/FE_Ventura_Configurador/VSCore/dist/
+/FE_Ventura_Configurador/VSCPEMain/dist/
+/FE_Ventura_Request/VSCPECore/build

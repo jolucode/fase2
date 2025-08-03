@@ -23,19 +23,23 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Compile all modules with module-specific jars
+      - name: Compile all modules with module-specific jars and Lombok/JFX flags
         run: |
-          # FE_Core
+          # === FE_Core ===
           mkdir -p classes_FE_Core
           if [ -d "FE_Core/src" ]; then
             find FE_Core/src -name "*.java" > sources.txt
             if [ -s sources.txt ]; then
-              javac -cp "recursos/CORE/*" -d classes_FE_Core @sources.txt
+              javac \
+                --add-exports jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED \
+                --add-opens jdk.compiler/com.sun.tools.javac.processing=ALL-UNNAMED \
+                -cp "recursos/CORE/*:recursos/CORE/javafx/*:recursos/CORE/ikonli/*:recursos/CORE/jfoenix/*:recursos/CORE/jprocesses/*:recursos/CORE/jaxb/*" \
+                -d classes_FE_Core @sources.txt
             fi
             rm sources.txt
           fi
 
-          # FE_Ventura_Configurador
+          # === FE_Ventura_Configurador ===
           mkdir -p classes_FE_Ventura_Configurador
           if [ -d "FE_Ventura_Configurador/src" ]; then
             find FE_Ventura_Configurador/src -name "*.java" > sources.txt
@@ -45,7 +49,7 @@ jobs:
             rm sources.txt
           fi
 
-          # FE_Ventura_Request
+          # === FE_Ventura_Request ===
           mkdir -p classes_FE_Ventura_Request
           if [ -d "FE_Ventura_Request/src" ]; then
             find FE_Ventura_Request/src -name "*.java" > sources.txt
@@ -55,7 +59,7 @@ jobs:
             rm sources.txt
           fi
 
-          # FE_Ventura_Response
+          # === FE_Ventura_Response ===
           mkdir -p classes_FE_Ventura_Response
           if [ -d "FE_Ventura_Response/src" ]; then
             find FE_Ventura_Response/src -name "*.java" > sources.txt
@@ -65,7 +69,7 @@ jobs:
             rm sources.txt
           fi
 
-          # FE_Ventura_Resumen
+          # === FE_Ventura_Resumen ===
           mkdir -p classes_FE_Ventura_Resumen
           if [ -d "FE_Ventura_Resumen/src" ]; then
             find FE_Ventura_Resumen/src -name "*.java" > sources.txt
@@ -74,7 +78,6 @@ jobs:
             fi
             rm sources.txt
           fi
-
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2

@@ -28,6 +28,7 @@ jobs:
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         with:
-          organization: <tu-organizacion-en-sonarcloud>
-          projectKey: <tu-projectKey>
-          token: ${{ secrets.SONAR_TOKEN }}
+          args: >
+            -Dsonar.organization=jolucode
+            -Dsonar.projectKey=jolucode_fase2
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }}

@@ -23,10 +23,58 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Compile Java sources
+      - name: Compile all modules (legacy)
         run: |
-          mkdir -p out
-          javac -d out $(find src -name "*.java")
+          mkdir -p classes_FE_Core
+          mkdir -p classes_FE_Ventura_Configurador
+          mkdir -p classes_FE_Ventura_Request
+          mkdir -p classes_FE_Ventura_Response
+          mkdir -p classes_FE_Ventura_Resumen
+
+          # Compilar FE_Core
+          if [ -d "FE_Core/src" ]; then
+            find FE_Core/src -name "*.java" > sources.txt
+            if [ -s sources.txt ]; then
+              javac -d classes_FE_Core @sources.txt
+            fi
+            rm sources.txt
+          fi
+
+          # Compilar FE_Ventura_Configurador
+          if [ -d "FE_Ventura_Configurador/src" ]; then
+            find FE_Ventura_Configurador/src -name "*.java" > sources.txt
+            if [ -s sources.txt ]; then
+              javac -d classes_FE_Ventura_Configurador @sources.txt
+            fi
+            rm sources.txt
+          fi
+
+          # Compilar FE_Ventura_Request
+          if [ -d "FE_Ventura_Request/src" ]; then
+            find FE_Ventura_Request/src -name "*.java" > sources.txt
+            if [ -s sources.txt ]; then
+              javac -d classes_FE_Ventura_Request @sources.txt
+            fi
+            rm sources.txt
+          fi
+
+          # Compilar FE_Ventura_Response
+          if [ -d "FE_Ventura_Response/src" ]; then
+            find FE_Ventura_Response/src -name "*.java" > sources.txt
+            if [ -s sources.txt ]; then
+              javac -d classes_FE_Ventura_Response @sources.txt
+            fi
+            rm sources.txt
+          fi
+
+          # Compilar FE_Ventura_Resumen
+          if [ -d "FE_Ventura_Resumen/src" ]; then
+            find FE_Ventura_Resumen/src -name "*.java" > sources.txt
+            if [ -s sources.txt ]; then
+              javac -d classes_FE_Ventura_Resumen @sources.txt
+            fi
+            rm sources.txt
+          fi
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
@@ -37,4 +85,4 @@ jobs:
             -Dsonar.organization=jolucode
             -Dsonar.projectKey=jolucode_fase2
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-            -Dsonar.java.binaries=out
+            -Dsonar.java.binaries=classes_FE_Core,classes_FE_Ventura_Configurador,classes_FE_Ventura_Request,classes_FE_Ventura_Response,classes_FE_Ventura_Resumen

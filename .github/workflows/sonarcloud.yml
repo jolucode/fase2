@@ -75,6 +75,7 @@ jobs:
             rm sources.txt
           fi
 
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
         env:

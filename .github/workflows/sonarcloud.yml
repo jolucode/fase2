@@ -23,11 +23,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
+      - name: Compile Java sources
+        run: |
+          mkdir -p out
+          javac -d out $(find src -name "*.java")
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@v2
@@ -38,3 +37,4 @@ jobs:
             -Dsonar.organization=jolucode
             -Dsonar.projectKey=jolucode_fase2
             -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+            -Dsonar.java.binaries=out
